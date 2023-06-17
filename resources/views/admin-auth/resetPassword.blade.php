@@ -24,8 +24,25 @@
           </div>
           <!-- /Logo -->
           <h4 class="mb-1 pt-2">Reset Password 🔒</h4>
-          <p class="mb-4">for <span class="fw-bold">john.doe@email.com</span></p>
-          <form id="formAuthentication" action="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/html/vertical-menu-template/auth-login-basic.html" method="POST">
+          <p class="mb-4">for <span class="fw-bold">{{ auth()->user()->email }}</span></p>
+
+          @if (session('success'))
+          <div class="alert alert-success alert-dismissible alert-label-icon label-arrow fade show mb-xl-0" role="alert">
+              <i class="ri-check-line label-icon"></i><strong>Success</strong>
+              {{ session('success') }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      @endif
+      @if (session('error'))
+          <div class="alert alert-danger alert-dismissible alert-label-icon label-arrow fade show mb-xl-0" role="alert">
+              <i class="ri-error-warning-line label-icon"></i><strong>Danger</strong>
+              {{ session('error') }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      @endif
+          <form id="formAuthentication" action="{{ route('admin.changePasswordStore',auth()->user()->id) }}" method="POST">
+            @csrf
+            @method('PUT')
             <div class="mb-3 form-password-toggle">
               <label class="form-label" for="password">New Password</label>
               <div class="input-group input-group-merge">
@@ -34,9 +51,9 @@
               </div>
             </div>
             <div class="mb-3 form-password-toggle">
-              <label class="form-label" for="confirm-password">Confirm Password</label>
+              <label class="form-label" for="password_confirmation">Confirm Password</label>
               <div class="input-group input-group-merge">
-                <input type="password" id="confirm-password" class="form-control" name="confirm-password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                <input type="password" id="password_confirmation" class="form-control" name="password_confirmation" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
                 <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
               </div>
             </div>

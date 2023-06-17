@@ -357,7 +357,7 @@ id="layout-navbar">
                     <div class="dropdown-divider"></div>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="pages-profile-user.html">
+                    <a class="dropdown-item" href="{{ route('admin.dash.profile') }}">
                         <i class="ti ti-user-check me-2 ti-sm"></i>
                         <span class="align-middle">My Profile</span>
                     </a>
@@ -369,7 +369,7 @@ id="layout-navbar">
 
 
                 <li>
-                    <a class="dropdown-item" href="auth-login-cover.html" target="_blank">
+                    <a class="dropdown-item" href="{{ route('admin.logout') }}">
                         <i class="ti ti-logout me-2 ti-sm"></i>
                         <span class="align-middle">Log Out</span>
                     </a>

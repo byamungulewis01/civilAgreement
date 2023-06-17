@@ -35,8 +35,8 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboards -->
-        <li class="menu-item active">
-            <a href="javascript:void(0);" class="menu-link">
+        <li class="menu-item {{ Request::routeIs('civilian.dash.index') ? 'active' : '' }}">
+            <a href="{{ route('civilian.dash.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-smart-home"></i>
                 <div data-i18n="Dashboards">Dashboards</div>
 
@@ -101,20 +101,20 @@
         </li>
 
         <!-- Cards -->
-        <li class="menu-item">
+        <li class="menu-item {{ in_array(Route::currentRouteName(), ['civilian.agreement.create','civilian.agreement.index']) ? 'open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-id"></i>
                 <div data-i18n="Agreements">Agreements</div>
                 <div class="badge bg-label-primary rounded-pill ms-auto">6</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="cards-basic.html" class="menu-link">
+                <li class="menu-item {{ Request::routeIs('civilian.agreement.index') ? 'active' : '' }}">
+                    <a href="{{ route('civilian.agreement.index') }}" class="menu-link">
                         <div data-i18n="List">List</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="cards-advance.html" class="menu-link">
+                <li class="menu-item {{ Request::routeIs('civilian.agreement.create') ? 'active' : '' }}">
+                    <a href="{{ route('civilian.agreement.create') }}" class="menu-link">
                         <div data-i18n="Create">Create</div>
                     </a>
                 </li>

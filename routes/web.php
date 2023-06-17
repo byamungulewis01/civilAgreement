@@ -18,12 +18,26 @@ use App\Http\Controllers\UserController;
 
 Route::controller(AdminAuthController::class)->prefix('admin')->name('admin.')->group(function () {
     Route::get('/login', 'index')->name('index');
+    Route::post('/login', 'login')->name('login');
     Route::get('/forgot-password', 'forgotPassword')->name('forgot-password');
-    Route::get('/reset-password', 'resetPassword')->name('reset-password');
+    Route::get('/reset-password', 'resetPassword')->name('reset-password')->middleware('auth');
+    Route::put('/reset-password/{id}', 'changePasswordStore')->name('changePasswordStore');
+
 });
-Route::controller(AdminDashController::class)->prefix('admin')->name('admin.dash.')->group(function () {
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/logout', [AdminAuthController::class,'logout'])->name('logout');
+
+Route::controller(AdminDashController::class)->name('dash.')->group(function () {
     Route::get('/dashboard', 'index')->name('index');
+    Route::get('/profile', 'profile')->name('profile');
+    Route::put('/profile/update', 'updateProfile')->name('updateProfile');
+    Route::get('/security', 'security')->name('security');
+    Route::put('/change-password', 'changePassword')->name('changePassword');
+    Route::get('/delete-account', 'deleteAccount')->name('delete-account');
+    Route::delete('/delete-account', 'deleteAccountStore')->name('delete-account-store');
 });
-Route::controller(UserController::class)->prefix('admin')->name('admin.users.')->group(function () {
+Route::controller(UserController::class)->name('users.')->group(function () {
     Route::get('/users', 'index')->name('index');
+});
+
 });

@@ -369,7 +369,7 @@ id="layout-navbar">
 
 
                 <li>
-                    <a class="dropdown-item" href="auth-login-cover.html" target="_blank">
+                    <a class="dropdown-item" href="{{ route('civilian.logout') }}">
                         <i class="ti ti-logout me-2 ti-sm"></i>
                         <span class="align-middle">Log Out</span>
                     </a>

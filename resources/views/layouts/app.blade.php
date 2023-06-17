@@ -40,8 +40,7 @@
 
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon"
-        href="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo/logo.jpg') }}" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com/">
@@ -61,28 +60,26 @@
         class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
 
+
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.cssd') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/node-waves/node-waves.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/typeahead-js/typeahead.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/jkanban/jkanban.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/select2/select2.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/bs-stepper/bs-stepper.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/flatpickr/flatpickr.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/quill/typography.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/quill/katex.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/quill/editor.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/select2/select2.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/formvalidation/dist/css/formValidation.min.css') }}" />
 
-    @yield('css')
+    <link rel="stylesheet" href="{{ asset('assets/toast/css/jquery.toast.css') }}">
 
-    <!-- Page CSS -->
+        <!-- Page CSS -->
 
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/app-kanban.css') }}" />
     <!-- Helpers -->
     <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
-
+    <script src="{{ asset('assets/vendor/js/template-customizer.js') }}"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('assets/js/config.js') }}"></script>
 </head>
@@ -107,8 +104,12 @@
 
             <!-- Menu -->
 
-            {{-- <x-admin.sidebar /> --}}
+            @if (auth()->user())
+            <x-admin.sidebar />
+            @else
             <x-civilian.sidebar />
+            @endif
+
             <!-- / Menu -->
 
 
@@ -122,8 +123,11 @@
 
                 <!-- Navbar -->
 
-               <x-admin.navbar />
-               {{-- <x-civilian.navbar /> --}}
+                @if (auth()->user())
+                <x-admin.navbar />
+                @else
+                <x-civilian.navbar />
+                @endif
 
 
                 <!-- / Navbar -->
@@ -190,36 +194,39 @@
     </div>
     <!-- / Layout wrapper -->
 
+  <!-- Core JS -->
+  <!-- build:js assets/vendor/js/core.js -->
+  <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
+  <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
+  <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
+  <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+  <script src="{{ asset('assets/vendor/libs/node-waves/node-waves.js') }}"></script>
 
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
-    <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/node-waves/node-waves.js') }}"></script>
+  <script src="{{ asset('assets/vendor/libs/hammer/hammer.js') }}"></script>
+  <script src="{{ asset('assets/vendor/libs/i18n/i18n.js') }}"></script>
+  <script src="{{ asset('assets/vendor/libs/typeahead-js/typeahead.js') }}"></script>
 
-    <script src="{{ asset('assets/vendor/libs/hammer/hammer.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/i18n/i18n.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/typeahead-js/typeahead.js') }}"></script>
+  <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
+  <!-- endbuild -->
 
-    <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
-    <!-- endbuild -->
+  <!-- Vendors JS -->
+  <script src="{{ asset('assets/vendor/libs/bs-stepper/bs-stepper.js') }}"></script>
+<script src="{{ asset('assets/vendor/libs/flatpickr/flatpickr.js') }}"></script>
+<script src="{{ asset('assets/vendor/libs/select2/select2.js') }}"></script>
+<script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js') }}"></script>
 
-    <!-- Vendors JS -->
-    <script src="{{ asset('assets/vendor/libs/moment/moment.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/flatpickr/flatpickr.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/select2/select2.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/jkanban/jkanban.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/quill/katex.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/quill/quill.js') }}"></script>
-    @yield('js')
+  <!-- Main JS -->
+  <script src="{{ asset('assets/js/main.js') }}"></script>
 
-    <!-- Main JS -->
-    <script src="{{ asset('assets/js/main.js') }}"></script>
+  <script src="{{ asset('assets/toast/jquery.js') }}"></script>
+    <script src="{{ asset('assets/toast/js/jquery.toast.js') }}"></script>
+    @include('layouts.flash_message')
 
-    <!-- Page JS -->
-    <script src="{{ asset('assets/js/app-kanban.js') }}"></script>
+  <!-- Page JS -->
+
+@yield('js')
 
 </body>
 

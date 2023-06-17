@@ -1,25 +1,13 @@
-{{-- @if (Session::has('success'))
-<div style="position: absolute;" class="bs-toast toast fade show bg-light" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header">
-      <i class="ti ti-bell ti-xs me-2 text-secondary"></i>
-      <div class="me-auto fw-semibold">RBA Notify</div>
-      <small class="text-muted">momment ago</small>
-      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-    <div class="toast-body text-warning">
-      {{ Session::get('success') }}
-    </div>
-  </div>
-@endif --}}
-@if (session()->has('message'))
+
+@if (session()->has('success'))
 <script>
 $(document).ready(function() {
     $.toast({
         heading: 'Success',
-        text: '{{ session()->get('message') }}',
+        text: '{{ session()->get('success') }}',
         showHideTransition: 'fade',
         icon: 'success',
-        position : 'top-right' 
+        position : 'top-right'
     });
 });
 </script>
@@ -32,7 +20,7 @@ $(document).ready(function() {
         text: '{{ session()->get('warning') }}',
         showHideTransition: 'fade',
         icon: 'warning',
-        position : 'top-right' 
+        position : 'top-right'
     });
 });
 </script>
@@ -45,7 +33,7 @@ $(document).ready(function() {
         text: '{{ session()->get('error') }}',
         showHideTransition: 'fade',
         icon: 'error',
-        position : 'top-right' 
+        position : 'top-right'
     });
 });
 </script>
@@ -53,7 +41,7 @@ $(document).ready(function() {
 
            @if($errors->any())
            @foreach ($errors->all() as $error)
-         
+
          @endforeach
            @php
                $data = 'Error Accurs';
@@ -70,6 +58,6 @@ $(document).ready(function() {
                 });
             });
             </script>
-            @endif 
-                    
+            @endif
+
 
