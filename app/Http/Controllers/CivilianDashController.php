@@ -31,13 +31,13 @@ class CivilianDashController extends Controller
         $request->validate([
             'firstName' => 'required|string|min:3|max:255',
             'lastName' => 'required|string|min:3|max:255',
-            'email' => 'required|email|unique:users,email,'.auth()->user()->id,
-            'phone' => 'required|numeric|digits:9|unique:users,phone,'.auth()->user()->id,
+            'email' => 'required|email|unique:users,email,'.auth()->guard('civilian')->user()->id,
+            'phone' => 'required|numeric|digits:9|unique:users,phone,'.auth()->guard('civilian')->user()->id,
         ]);
         $request->merge([
             'name' => $request->firstName.' '.$request->lastName,
         ]);
-        Civilian::find(auth()->user()->id)->update($request->all());
+        Civilian::find(auth()->guard('civilian')->user()->id)->update($request->all());
         return redirect()->back()->with('success', 'Profile updated successfully');
     }
     // changePassword
@@ -48,15 +48,15 @@ class CivilianDashController extends Controller
             'password' => 'required|confirmed|min:8',
         ]);
         # check if provided current password is correct
-        if (!(Hash::check($request->get('currentPassword'), auth()->user()->password))) {
+        if (!(Hash::check($request->get('currentPassword'), auth()->guard('civilian')->user()->password))) {
             return redirect()->back()->with('error', 'Your current password does not matches with the password you provided. Please try again.');
         }
 
         # check if new password is same as old password
-        if ((Hash::check($request->get('password'), auth()->user()->password))) {
+        if ((Hash::check($request->get('password'), auth()->guard('civilian')->user()->password))) {
             return redirect()->back()->with('error', 'Your current password matches with the password you provided. Please try again.');
         }
-        $user = Civilian::find(auth()->user()->id);
+        $user = Civilian::find(auth()->guard('civilian')->user()->id);
         $user->password = Hash::make($request->password);
         $user->save();
         return redirect()->back()->with('success', 'Password changed successfully');
@@ -68,15 +68,15 @@ class CivilianDashController extends Controller
             'password' => 'required',
         ]);
         # check if provided current password is correct
-        if (!(Hash::check($request->get('password'), auth()->user()->password))) {
+        if (!(Hash::check($request->get('password'), auth()->guard('civilian')->user()->password))) {
             return redirect()->back()->with('error', 'Your current password does not matches with the password you provided. Please try again.');
         }
         # delete the user
-        Civilian::find(auth()->user()->id)->delete();
+        Civilian::find(auth()->guard('civilian')->user()->id)->delete();
         #logout the user
-        auth()->logout();
+        auth()->guard('civilian')->logout();
         # redirect to login page
-        return redirect()->route('admin.index')->with('success', 'Account deleted successfully!');
+        return redirect()->route('civilian.auth.index')->with('success', 'Account deleted successfully!');
     }
 
 }

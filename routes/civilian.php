@@ -39,5 +39,6 @@ Route::controller(AgreementController::class)->prefix('agreement')->name('agreem
     Route::get('/', 'index')->name('index');
     Route::get('/show', 'show')->name('show');
     Route::get('/create', 'create')->name('create');
+    Route::post('/upload', 'upload')->name('upload');
 });
 });

@@ -185,7 +185,7 @@
                         <div class="mb-3 col-md-6 form-password-toggle fv-plugins-icon-container">
                             <label class="form-label" for="password">Provide Password</label>
                             <div class="input-group input-group-merge has-validation">
-                                <input class="form-control" type="password" name="password" id="password"
+                                <input class="form-control" type="password" name="password" id="password" required
                                     placeholder="············">
                                 <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
                             </div>
