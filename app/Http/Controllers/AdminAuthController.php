@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AdminAuthController extends Controller
 {
@@ -31,6 +32,9 @@ class AdminAuthController extends Controller
             if (auth()->user()->password == '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi') {
                 return redirect()->route('admin.reset-password');
             }
+            if (auth()->user()->password_reseted) {
+                return redirect()->route('admin.reset-password');
+            }
             return redirect()->route('admin.dash.index');
         }
         return redirect()->route('admin.index')->with('error', 'Invalid Credentials');
@@ -40,6 +44,33 @@ class AdminAuthController extends Controller
     {
         return view('admin-auth.forgetPassword');
     }
+    // sendMail
+    public function sendMail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+        $user = User::where('email', $request->email)->first();
+        if (!$user) {
+            return redirect()->back()->with('error', 'Email does not exist!');
+        }
+        $password = rand(100000, 999999);
+        $user->update([
+            'password' => Hash::make($password),
+            'password_reseted' => true,
+        ]);
+        Mail::send('emails.admin-resetPassword', ['name' => $user->name, 'password' => $password], function ($message) use ($user) {
+            $message->to($user->email);
+            $message->subject('Reset Password Notification');
+        });
+        return redirect()->route('admin.sendMailSuccess')->with('sentEmail', 'Reset password link sent to your email.');
+    }
+    // sendMailSuccess
+    public function sendMailSuccess()
+    {
+        return view('admin-auth.sendMail');
+    }
+
     // reset password
     public function resetPassword()
     {
@@ -57,6 +88,7 @@ class AdminAuthController extends Controller
         }
         $user = User::find($id);
         $user->password = Hash::make($request->password);
+        $user->password_reseted = false;
         $user->save();
         #logout the user
         auth()->logout();

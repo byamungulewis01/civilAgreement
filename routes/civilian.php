@@ -22,7 +22,11 @@ Route::controller(CivilianAuthController::class)->name('auth.')->group(function 
     Route::get('/register', 'register')->name('register');
     Route::post('/register', 'store')->name('store');
     Route::get('/forgot-password', 'forgotPassword')->name('forgot-password');
+    Route::post('/forgot-password', 'sendMail')->name('sendMail');
     Route::get('/reset-password', 'resetPassword')->name('reset-password');
+    Route::put('/reset-password', 'changePassword')->name('changePassword');
+    Route::get('/mail-sent', 'sendMailSuccess')->name('sendMailSuccess');
+
 });
 Route::middleware('civilian')->group(function () {
     Route::get('/logout', [CivilianAuthController::class,'logout'])->name('logout');
@@ -37,8 +41,13 @@ Route::controller(CivilianDashController::class)->prefix('civilian')->name('dash
 });
 Route::controller(AgreementController::class)->prefix('agreement')->name('agreement.')->group(function () {
     Route::get('/', 'index')->name('index');
-    Route::get('/show', 'show')->name('show');
+    Route::get('/show/{id}', 'show')->name('show');
     Route::get('/create', 'create')->name('create');
-    Route::post('/upload', 'upload')->name('upload');
+    Route::post('/store', 'store')->name('store');
+    Route::get('/edit/{id}', 'edit')->name('edit');
+    Route::put('/update/{id}', 'update')->name('update');
+
+    Route::put('/accept/{id}', 'accept')->name('accept');
+    Route::put('/reject/{id}', 'reject')->name('reject');
 });
 });

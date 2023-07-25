@@ -20,6 +20,8 @@ Route::controller(AdminAuthController::class)->prefix('admin')->name('admin.')->
     Route::get('/login', 'index')->name('index');
     Route::post('/login', 'login')->name('login');
     Route::get('/forgot-password', 'forgotPassword')->name('forgot-password');
+    Route::post('/forgot-password', 'sendMail')->name('sendMail');
+    Route::get('/mail-sent', 'sendMailSuccess')->name('sendMailSuccess');
     Route::get('/reset-password', 'resetPassword')->name('reset-password')->middleware('auth');
     Route::put('/reset-password/{id}', 'changePasswordStore')->name('changePasswordStore');
 

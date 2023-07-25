@@ -4,59 +4,63 @@
 
 @section('body')
 <div class="row g-4">
+    @forelse ($agreements as $item)
+    @php
+        $name = ($item->partyOne == auth()->guard('civilian')->user()->id) ? $item->party2->name : $item->party1->name;
+        $national_id = ($item->partyOne == auth()->guard('civilian')->user()->id) ? $item->party2->national_id : $item->party1->national_id;
+        $start = explode(' to ', $item->duration)[0];
+        $deadline = explode(' to ', $item->duration)[1];
+        $days = \Carbon\Carbon::parse($deadline)->diffInDays(\Carbon\Carbon::now());
 
 
+    @endphp
     <div class="col-xl-6 col-lg-6 col-md-6">
       <div class="card">
         <div class="card-header">
           <div class="d-flex align-items-start">
             <div class="d-flex align-items-start">
-              <div class="avatar me-2">
-                <img src="../../assets/img/icons/brands/figma-label.png" alt="Avatar" class="rounded-circle">
-              </div>
               <div class="me-2 ms-1">
-                <h5 class="mb-0"><a href="javascript:;" class="stretched-link text-body">BYAMUNGU Lewis</a></h5>
-                <div class="client-info"><span class="text-muted">11998828989893839</span></div>
+                <h5 class="mb-0"><a href="{{ route('civilian.agreement.show',$item->id) }}" class="stretched-link text-body">{{ $name }}</a></h5>
+                <div class="client-info"><span class="text-muted">{{ $national_id }}</span></div>
               </div>
             </div>
             <div class="ms-auto">
-                <span class="badge bg-label-danger ms-auto">5 Days left</span>
+                <span class="badge bg-label-{{ $days > 5 ? 'success' : 'danger' }} ms-auto">{{ $days }} Days left</span>
             </div>
           </div>
         </div>
         <div class="card-body">
-          <div class="d-flex align-items-center flex-wrap">
-            <div class="bg-lighter px-3 py-2 rounded me-auto mb-3">
-              <h6 class="mb-0">$52.7k <span class="text-body fw-normal">/ $28.4k</span></h6>
-              <span>Total Budget</span>
+            <div class="d-flex align-items-center flex-wrap">
+              <div class="bg-lighter px-3 py-2 rounded me-auto mb-3">
+                  <h6 class="mb-0">Total Amount</h6>
+                  <small class="mb-0 text-success">RWF {{ number_format($item->amount) }}</small>
+              </div>
+              <div class="text-end mb-3">
+
+                <h6 class="mb-0">Start Date: <span class="text-body fw-normal">{{ \Carbon\Carbon::parse($start)->format('d/m/y') }}</span></h6>
+                <h6 class="mb-1">Deadline: <span class="text-body fw-normal">{{ \Carbon\Carbon::parse($deadline)->format('d/m/y') }}</span></h6>
+              </div>
             </div>
-            <div class="text-end mb-3">
-              <h6 class="mb-0">Start Date: <span class="text-body fw-normal">12/12/20</span></h6>
-              <h6 class="mb-1">Deadline: <span class="text-body fw-normal">25/12/21</span></h6>
-            </div>
-          </div>
-          <p class="mb-0">Use this template to organize your design project. Some of the key features are…</p>
+            <h4 class="mb-0">{{ $item->category }}</h4>
+
         </div>
-        <div class="card-body border-top">
-
-          <div class="d-flex justify-content-between align-items-center mb-2 pb-1">
-            <small>Task: 29/285</small>
-            <small>35% Completed</small>
-          </div>
-          <div class="progress mb-2" style="height: 8px;">
-            <div class="progress-bar" role="progressbar" style="width: 35%;" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="d-flex align-items-center pt-1">
-            <div class="d-flex align-items-center">
-
-            </div>
-            <div class="ms-auto">
-              <a href="{{ route('civilian.agreement.show') }}" class="text-body"><i class="ti ti-message-dots ti-sm"></i> More</a>
+      </div>
+    </div>
+    @empty
+    <div class="col-xl-12 col-lg-12 col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="empty-state text-center pb-3">
+              <img src="{{ asset('assets/images/file-searching.svg') }}" alt="image" class="h-8">
+              <h2 class="mt-4 mb-1">No Agreement</h2>
+              <p class="mb-5">Looks like you have not created any agreement yet!</p>
+              <a href="{{ route('civilian.agreement.create') }}" class="btn btn-primary">Create Agreement</a>
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+    @endforelse
 
   </div>
 @endsection

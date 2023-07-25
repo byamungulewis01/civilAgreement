@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Civilian;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class CivilianAuthController extends Controller
 {
@@ -27,6 +28,8 @@ class CivilianAuthController extends Controller
     {
         return view('civilian-auth.reset-password');
     }
+    // send reset password email
+
     public function login(Request $request)
     {
 
@@ -63,6 +66,48 @@ class CivilianAuthController extends Controller
         auth()->guard('civilian')->login($civilian);
         return redirect()->route('civilian.dash.index');
     }
+
+    // sendMail
+    public function sendMail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+        $civilian = Civilian::where('email', $request->email)->first();
+        if ($civilian) {
+            $civilian->update(['password_reset' => uniqid().'&email='.$civilian->email, ]);
+            Mail::send('emails.resetPassword', ['key' => $civilian->password_reset], function ($message) use ($civilian) {
+                $message->to($civilian->email);
+                $message->subject('Reset Password');
+
+            });
+            return redirect()->route('civilian.auth.sendMailSuccess')->with('sentEmail', $civilian->email);
+        }
+        return redirect()->route('civilian.auth.forgot-password')->with('error', 'Email not found');
+
+    }
+    // sendMailSuccess
+    public function sendMailSuccess()
+    {
+        return view('civilian-auth.emailSent');
+    }
+    // changePassword
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|min:6|confirmed',
+        ]);
+        $civilian = Civilian::where('password_reset', $request->key)->first();
+        if ($civilian) {
+            $civilian->update([
+                'password' => bcrypt($request->password),
+                'password_reset' => null,
+            ]);
+            return redirect()->route('civilian.auth.index')->with('success', 'Password changed successfully');
+        }
+        return redirect()->route('civilian.auth.index')->with('error', 'Invalid key');
+    }
+
     // logout
     public function logout()
     {

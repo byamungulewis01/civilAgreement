@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('password_reseted')->default(false);
             $table->enum('role', ['admin', 'judge']);
             $table->softDeletes();
             $table->rememberToken();

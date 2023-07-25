@@ -24,7 +24,24 @@
                   <!-- /Logo -->
                   <h4 class="mb-1 pt-2">Forgot Password? 🔒</h4>
                   <p class="mb-4">Enter your email and we'll send you instructions to reset your password</p>
-                  <form id="formAuthentication" class="mb-3" action="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/html/vertical-menu-template/auth-reset-password-basic.html" method="POST">
+                  @if (session('error'))
+                  <div class="alert alert-danger alert-dismissible alert-label-icon label-arrow fade show mb-3" role="alert">
+                      <i class="ri-error-warning-line label-icon"></i><strong>Danger</strong>
+                      {{ session('error') }}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+               @endif
+              @if ($errors->any())
+                  <div class="alert alert-danger alert-dismissible alert-label-icon label-arrow fade show mb-3" role="alert">
+                      <i class="ri-error-warning-line label-icon"></i><strong>Danger</strong>
+                      @foreach ($errors->all() as $error)
+                          {{ $error }}
+                      @endforeach
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+              @endif
+                  <form id="formAuthentication" class="mb-3" action="{{ route('admin.sendMail') }}" method="POST">
+                    @csrf
                     <div class="mb-3">
                       <label for="email" class="form-label">Email</label>
                       <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" autofocus>

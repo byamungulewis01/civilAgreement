@@ -25,6 +25,8 @@ class Civilian extends Authenticatable
         'password',
         'national_id',
         'national_id_image',
+        'password_reset',
+
     ];
 
     /**

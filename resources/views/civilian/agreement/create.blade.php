@@ -6,21 +6,100 @@
 
 @section('body')
 
-<div class="container">
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Create Agreement</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title end breadcrumb -->
+<div class="row">
+    <div class="col12">
+        <div class="card">
+            <div class="card-body">
+                <form action="{{ route('civilian.agreement.store') }}" method="post">
+                    @csrf
+                <div class="row g-3 mb-3">
+                    <div class="col-12 pb-2">
+                        <div class="row">
+                            <div class="col-md mb-md-0 mb-2">
+                                <div class="form-check custom-option custom-option-icon checked">
+                                    <label class="form-check-label custom-option-content" for="customRadioPercentage">
+                                        <span class="custom-option-body">
 
-    <form id="videoForm" action="{{ route('civilian.agreement.upload') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <video id="videoElement" width="400" height="300" autoplay></video>
-        <button id="startRecordingBtn">Start Recording</button>
-        <input type="hidden" id="videoData" name="videoData">
-        <input type="hidden" id="videoDuration" name="videoDuration">
-        <button id="submitBtn" type="submit" style="display: none;">Upload Video</button>
-    </form>
+                                            <span class="custom-option-title">Pay With Me </span>
+                                            <small>Create a deal which offer uses some % off (i.e 5% OFF) on
+                                                total.</small>
+                                        </span>
+                                        <input name="whoToPay" class="form-check-input" type="radio" value="me"
+                                            id="customRadioPercentage" checked="">
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md mb-md-0 mb-2">
+                                <div class="form-check custom-option custom-option-icon">
+                                    <label class="form-check-label custom-option-content" for="customRadioPrime">
+                                        <span class="custom-option-body">
+                                            <span class="custom-option-title"> Pay With Other </span>
+                                            <small>Create prime member only deal to encourage the prime members.</small>
+                                        </span>
+                                        <input name="whoToPay" class="form-check-input" type="radio" value="other"
+                                            id="customRadioPrime">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 fv-plugins-icon-container">
+                        <label class="form-label" for="dealAmount">Amount to pay</label>
+                        <input type="number" name="amount" value="{{ old('amount') }}" id="dealAmount" class="form-control" placeholder="25"
+                            min="0" max="100000000" aria-describedby="dealAmountHelp">
+                        <div id="dealAmountHelp" class="form-text">Enter the Agreement Amount  10 = 10%</div>
+                        <div class="fv-plugins-message-container invalid-feedback"></div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="dealDuration" class="form-label">Agreement Duration</label>
+                        <input type="text" id="dealDuration" name="duration" value="{{ old('duration') }}"  class="form-control flatpickr-input"
+                            placeholder="YYYY-MM-DD to YYYY-MM-DD" readonly="readonly">
+                            <div id="dealAmountHelp" class="form-text">Enter Agreement Duration</div>
+                            <div class="fv-plugins-message-container invalid-feedback"></div>
+                    </div>
+                </div>
+                <div class="row g-3 mb-3">
+                    <div class="col-lg-12">
+                        <label class="form-label" for="agreement">Agreement Category</label>
+                        <input type="text" name="category" value="{{ old('category') }}" id="agreement" class="form-control" placeholder="Agreement"
+                            aria-describedby="agreementHelp">
+                      </div>
+                    <div class="col-lg-12">
+                        <label class="form-label" for="agreement">Agreement Description</label>
+                        <textarea class="form-control" id="agreement" name="description" rows="5">{{ old('description') }}</textarea>
+                      </div>
+                </div>
+                <div class="row g-3 mb-3">
+                    <div class="col-sm-12">
+                        <label class="form-label" for="nationalId">Party National ID</label>
+                        <input type="text" minlength="16" maxlength="16" id="nationalId"  value="{{ old('partyTwo') }}" name="partyTwo" class="form-control"
+                            placeholder="00000000000000000">
+                    </div>
+                </div>
+                <div class="row g-3 mb-3">
+                    <div class="col-12 d-flex justify-content-between mt-4">
+                        <button class="btn btn-primary btn-next waves-effect waves-light"> <span
+                                class="align-middle d-sm-inline-block d-none me-sm-1">Submit</span> <i
+                                class="ti ti-send ti-xs"></i></button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
-
 <!-- Create Deal Wizard -->
-<div id="wizard-create-deal" class="bs-stepper vertical mt-2 linear">
+{{-- <div id="wizard-create-deal" class="bs-stepper vertical mt-2 linear">
     <div class="bs-stepper-header">
         <div class="step active" data-target="#deal-type">
             <button type="button" class="step-trigger" aria-selected="true">
@@ -64,7 +143,6 @@
     </div>
     <div class="bs-stepper-content">
         <form id="wizard-create-deal-form" onsubmit="return false">
-            <!-- Deal Type -->
             <div id="deal-type" class="content active dstepper-block fv-plugins-bootstrap5 fv-plugins-framework">
                 <div class="row g-3">
 
@@ -125,7 +203,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Deal Details -->
             <div id="deal-details" class="content fv-plugins-bootstrap5 fv-plugins-framework">
                 <div class="row g-3">
 
@@ -136,10 +213,7 @@
                       </div>
                     <div class="col-lg-12">
                         <label class="form-label" for="agreement">Agreement Description</label>
-                        <div id="full-editor">
-                            <h6>Quill Rich Text Editor</h6>
-                            <p> Cupcake ipsum dolor sit amet. Halvah cheesecake chocolate bar gummi bears cupcake. Pie macaroon bear claw. Soufflé I love candy canes I love cotton candy I love. </p>
-                          </div>
+                        <textarea class="form-control" id="agreement" name="agreement" rows="5"></textarea>
                       </div>
 
                     <div class="col-12 d-flex justify-content-between mt-4">
@@ -153,7 +227,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Deal Usage -->
             <div id="deal-usage" class="content fv-plugins-bootstrap5 fv-plugins-framework">
                 <div class="row g-3">
                     <div class="col-sm-12">
@@ -161,37 +234,7 @@
                         <input type="number" id="dealUserType" name="dealMaxUsers" class="form-control"
                             placeholder="500">
                     </div>
-                    <div class="col-lg-12">
-                        {{-- live capture video --}}
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="live-capture">
-                                            <div class="live-capture__container">
-                                                <video id="video" class="live-capture__video"></video>
-                                                <canvas id="canvas" class="live-capture__canvas"></canvas>
-                                            </div>
-                                            <div class="live-capture__controls">
-                                                <button id="startbutton" class="btn btn-primary">Start Recording</button>
-                                                <button id="resetbutton" class="btn btn-secondary">Reset</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="live-capture">
-                                            <div class="live-capture__container">
-                                                <video id="recordedVideo" class="live-capture__video" controls></video>
-                                            </div>
-                                            <div class="live-capture__controls">
-                                                <button id="downloadbutton" class="btn btn-primary">Download</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="col-12 d-flex justify-content-between mt-4">
                         <button class="btn btn-label-secondary btn-prev waves-effect"> <i
                                 class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
@@ -203,7 +246,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Review & Complete -->
             <div id="review-complete" class="content fv-plugins-bootstrap5 fv-plugins-framework">
                 <div class="row g-3">
 
@@ -273,15 +315,12 @@
             </div>
         </form>
     </div>
-</div>
+</div> --}}
 <!-- /Create Deal Wizard -->
 
 
 @endsection
 @section('js')
-<script src="{{ asset('assets/vendor/libs/quill/katex.js') }}"></script>
-<script src="{{ asset('assets/vendor/libs/quill/quill.js') }}"></script>
-<script src="{{ asset('assets/js/forms-editors.js') }}"></script>
 <script>
     "use strict";
     ! function () {
@@ -442,55 +481,18 @@
     }();
 
 </script>
-<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-
 <script>
-    let videoData = null;
-    let videoDuration = 30; // Duration in seconds
-    let timerId = null;
-
-    function startCountdown() {
-        let counter = 1;
-        timerId = setInterval(() => {
-            if (counter > videoDuration) {
-                clearInterval(timerId);
-                document.getElementById('videoData').value = videoData;
-                document.getElementById('videoDuration').value = videoDuration;
-                document.getElementById('submitBtn').click(); // Auto submit form
-            } else {
-                console.log(counter);
-                counter++;
+    $(document).ready(function () {
+        $("#nationalId").keypress(function (e) {
+            var inputValue = $(this).val();
+            var charCode = String.fromCharCode(e.keyCode);
+            // Allow only numeric digits and check the first character
+            if (charCode.match(/[^0-9]/g) || (inputValue.length === 0 && !['1', '2'].includes(charCode))) {
+                e.preventDefault();
             }
-        }, 1000);
-    }
-
-    document.getElementById('startRecordingBtn').addEventListener('click', () => {
-        const videoElement = document.getElementById('videoElement');
-
-        if (navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(stream => {
-                    videoElement.srcObject = stream;
-
-                    const mediaRecorder = new MediaRecorder(stream);
-                    const chunks = [];
-
-                    mediaRecorder.ondataavailable = e => chunks.push(e.data);
-                    mediaRecorder.onstop = () => {
-                        videoData = URL.createObjectURL(new Blob(chunks));
-                    };
-
-                    startCountdown();
-                    mediaRecorder.start();
-                })
-                .catch(err => {
-                    console.error('Error accessing webcam:', err);
-                });
-        }
+        });
     });
 </script>
-
-
 
 
 @endsection

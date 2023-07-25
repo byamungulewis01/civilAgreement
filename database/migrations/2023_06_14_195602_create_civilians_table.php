@@ -20,6 +20,7 @@ return new class extends Migration
             $table->char('national_id', 16)->unique();
             $table->string('national_id_image')->nullable();
             $table->string('password');
+            $table->string('password_reset');
             $table->softDeletes();
             $table->timestamps();
         });

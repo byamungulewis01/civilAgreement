@@ -31,12 +31,36 @@
                 </span>
             </a>
           </div>
+          @if ($errors->any())
+          <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
+              <div class="alert-body">
+                  <ul>
+                      @foreach ($errors->all() as $error)
+                      <li>
+                          <i class="ti ti-close"></i> {{ $error }}
+                      </li>
+                      @endforeach
+                  </ul>
+              </div>
+          </div>
+          @endif
+
+          @if (session('error'))
+          <div class="alert alert-danger alert-dismissible alert-label-icon label-arrow fade show mb-3" role="alert">
+              <i class="ri-error-warning-line label-icon"></i><strong>Danger</strong>
+              {{ session('error') }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+         @endif
           <!-- /Logo -->
           <h3 class="mb-1 fw-bold">Reset Password 🔒</h3>
-          <p class="mb-4">for <span class="fw-bold">john.doe@email.com</span></p>
-          <form id="formAuthentication" class="mb-3 fv-plugins-bootstrap5 fv-plugins-framework" action="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/html/vertical-menu-template/auth-login-cover.html" method="POST" novalidate="novalidate">
+          <p class="mb-4">for <span class="fw-bold"> {{ request('email') }}</span></p>
+          <form id="formAuthentication" class="mb-3 fv-plugins-bootstrap5 fv-plugins-framework" action="{{ route('civilian.auth.changePassword') }}" method="POST" novalidate="novalidate">
+            @csrf
+            @method('PUT')
             <div class="mb-3 form-password-toggle fv-plugins-icon-container">
               <label class="form-label" for="password">New Password</label>
+              <input type="hidden" name="key" value="{{ request('key') }}&email={{ request('email') }}"/>
               <div class="input-group input-group-merge has-validation">
                 <input type="password" id="password" class="form-control" name="password" placeholder="············" aria-describedby="password">
                 <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
@@ -45,7 +69,7 @@
             <div class="mb-3 form-password-toggle fv-plugins-icon-container">
               <label class="form-label" for="confirm-password">Confirm Password</label>
               <div class="input-group input-group-merge has-validation">
-                <input type="password" id="confirm-password" class="form-control" name="confirm-password" placeholder="············" aria-describedby="password">
+                <input type="password" id="confirm-password" class="form-control" name="password_confirmation" placeholder="············" aria-describedby="password">
                 <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
               </div><div class="fv-plugins-message-container invalid-feedback"></div>
             </div>
