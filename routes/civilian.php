@@ -46,8 +46,9 @@ Route::controller(AgreementController::class)->prefix('agreement')->name('agreem
     Route::post('/store', 'store')->name('store');
     Route::get('/edit/{id}', 'edit')->name('edit');
     Route::put('/update/{id}', 'update')->name('update');
-
     Route::put('/accept/{id}', 'accept')->name('accept');
     Route::put('/reject/{id}', 'reject')->name('reject');
+    
+    Route::post('/payment/{id}', 'paymentStore')->name('paymentStore');
 });
 });

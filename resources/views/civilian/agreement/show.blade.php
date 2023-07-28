@@ -8,125 +8,310 @@
 @section('body')
 <div class="row">
     <div class="col-xl-4 col-lg-5 col-md-5">
-      <!-- About User -->
-      <div class="card mb-4">
-        <div class="card-body">
-            @php
-                  $party = ($agreement->partyOne == auth()->guard('civilian')->user()->id) ? $agreement->party2 : $agreement->party1;
-            @endphp
-          <small class="card-text text-uppercase">About</small>
-          <ul class="list-unstyled mb-4 mt-3">
-            <li class="d-flex align-items-center mb-3"><i class="ti ti-user"></i><span class="fw-bold mx-2">Full Name:</span> <span>{{ $party->name }}</span></li>
-            <li class="d-flex align-items-center mb-3"><i class="ti ti-number"></i><span class="fw-bold mx-2">NID:</span> <span>{{ $party->national_id }}</span></li>
-            <li class="d-flex align-items-center mb-3"><i class="ti ti-phone-call"></i><span class="fw-bold mx-2">Contact:</span> <span>{{ $party->phone }}</span></li>
-            <li class="d-flex align-items-center mb-3"><i class="ti ti-mail"></i><span class="fw-bold mx-2">Email:</span> <span>{{ $party->email }}</span></li>
-          </ul>
-          <small class="card-text text-uppercase">Image</small>
-          <ul class="list-unstyled mb-0 mt-3">
-            <li class="d-flex align-items-center mb-3"><i class="ti ti-brand-angular text-danger me-2"></i>
-              <div class="d-flex flex-wrap"><span class="fw-bold me-2">Backend Developer</span><span>(126 Members)</span></div>
-            </li>
+        <!-- About User -->
+        <div class="card mb-4">
+            <div class="card-body">
+                @php
+                $party = ($agreement->partyOne == auth()->guard('civilian')->user()->id) ? $agreement->party2 :
+                $agreement->party1;
+                @endphp
+                <small class="card-text text-uppercase">About</small>
+                <ul class="list-unstyled mb-4 mt-3">
+                    <li class="d-flex align-items-center mb-3"><i class="ti ti-user"></i><span class="fw-bold mx-2">Full
+                            Name:</span> <span>{{ $party->name }}</span></li>
+                    <li class="d-flex align-items-center mb-3"><i class="ti ti-number"></i><span
+                            class="fw-bold mx-2">NID:</span> <span>{{ $party->national_id }}</span></li>
+                    <li class="d-flex align-items-center mb-3"><i class="ti ti-phone-call"></i><span
+                            class="fw-bold mx-2">Contact:</span> <span>{{ $party->phone }}</span></li>
+                    <li class="d-flex align-items-center mb-3"><i class="ti ti-mail"></i><span
+                            class="fw-bold mx-2">Email:</span> <span>{{ $party->email }}</span></li>
+                </ul>
+                <small class="card-text text-uppercase">Image</small>
+                <ul class="list-unstyled mb-0 mt-3">
+                    <li class="d-flex align-items-center mb-3"><i class="ti ti-brand-angular text-danger me-2"></i>
+                        <div class="d-flex flex-wrap"><span class="fw-bold me-2">Backend Developer</span><span>(126
+                                Members)</span></div>
+                    </li>
 
-          </ul>
+                </ul>
+            </div>
         </div>
-      </div>
-      <!--/ About User -->
-      <!-- Profile Overview -->
-      <div class="card mb-4">
-        <div class="card-body">
-          <p class="card-text text-uppercase">Overview</p>
-          <ul class="list-unstyled mb-0">
-            <li class="d-flex align-items-center mb-3"><i class="ti ti-check"></i><span class="fw-bold mx-2">Task Compiled:</span> <span>13.5k</span></li>
-            <li class="d-flex align-items-center mb-3"><i class="ti ti-layout-grid"></i><span class="fw-bold mx-2">Projects Compiled:</span> <span>146</span></li>
-            <li class="d-flex align-items-center"><i class="ti ti-users"></i><span class="fw-bold mx-2">Connections:</span> <span>897</span></li>
-          </ul>
+        <!--/ About User -->
+        <!-- Profile Overview -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <p class="card-text text-uppercase">Overview</p>
+                <ul class="list-unstyled mb-0">
+                    <li class="d-flex align-items-center mb-3"><i class="ti ti-check"></i><span
+                            class="fw-bold mx-2">Task Compiled:</span> <span>13.5k</span></li>
+                    <li class="d-flex align-items-center mb-3"><i class="ti ti-layout-grid"></i><span
+                            class="fw-bold mx-2">Projects Compiled:</span> <span>146</span></li>
+                    <li class="d-flex align-items-center"><i class="ti ti-users"></i><span
+                            class="fw-bold mx-2">Connections:</span> <span>897</span></li>
+                </ul>
+            </div>
         </div>
-      </div>
-      <!--/ Profile Overview -->
+        <!--/ Profile Overview -->
     </div>
     <div class="col-xl-8 col-lg-7 col-md-7">
-      <!-- Activity Timeline -->
-      <div class="card card-action mb-4">
+        <!-- Activity Timeline -->
+        <div class="card card-action mb-4">
             <div class="card-header align-items-center">
                 <h5 class="card-action-title mb-0">{{ $agreement->category }}</h5>
                 <div class="card-action-element">
-                     {{-- update --}}
-                     @if ($agreement->status == 'pending' && $agreement->created_by == auth()->guard('civilian')->user()->id)
-                         <a href="{{ route('civilian.agreement.edit',$agreement->id) }}" class="btn btn-sm btn-light-primary">Edit</a>
-                     @else
+                    {{-- update --}}
+                    @if ($agreement->status == 'pending' && $agreement->created_by ==
+                    auth()->guard('civilian')->user()->id)
+                    <a href="{{ route('civilian.agreement.edit',$agreement->id) }}"
+                        class="btn btn-sm btn-light-primary">Edit</a>
+                    @else
 
-                     @if ($agreement->status == 'accepted')
-                       <span class="badge bg-label-success ms-auto">Accepted</span>
-                     @elseif($agreement->status == 'accepted')
-                       <span class="badge bg-label-danger ms-auto">Rejected</span>
+                    @if ($agreement->status == 'accepted')
+                    <span class="badge bg-label-success ms-auto">Accepted</span>
+                    @elseif($agreement->status == 'accepted')
+                    <span class="badge bg-label-danger ms-auto">Rejected</span>
 
-                     @else
-                     <button type="button" data-bs-toggle="modal" data-bs-target="#accepted" class="btn btn-sm btn-label-linkedin waves-effect"> Accept</button>
-                     <button type="button" data-bs-toggle="modal" data-bs-target="#reject" class="btn btn-sm btn-label-pinterest waves-effect"> Reject</button>
-                     @endif
-                            <!-- Approve Modal -->
-                                <div class="modal fade" id="accepted" tabindex="-1" aria-hidden="true">
-                                    <div class="modal-dialog modal-simple modal-enable-otp modal-dialog-centered">
-                                    <div class="modal-content p-3 p-md-5">
-                                        <div class="modal-body">
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        <div class="text-center mb-4">
-                                            <h3 class="mb-2">Accept Agreement</h3>
-                                        </div>
-                                        <p>Make sure you have read the agreement carefully before approving it.
-                                            Ensure that you have understood all the terms and conditions of the agreement.</p>
+                    @else
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#accepted"
+                        class="btn btn-sm btn-label-linkedin waves-effect"> Accept</button>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#reject"
+                        class="btn btn-sm btn-label-pinterest waves-effect"> Reject</button>
+                    @endif
+                    <!-- Approve Modal -->
+                    <div class="modal fade" id="accepted" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-simple modal-enable-otp modal-dialog-centered">
+                            <div class="modal-content p-3 p-md-5">
+                                <div class="modal-body">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                    <div class="text-center mb-4">
+                                        <h3 class="mb-2">Accept Agreement</h3>
+                                    </div>
+                                    <p>Make sure you have read the agreement carefully before approving it.
+                                        Ensure that you have understood all the terms and conditions of the agreement.
+                                    </p>
 
-                                            <form action="{{ route('civilian.agreement.accept',$agreement->id) }}" method="post">
-                                                @csrf
-                                                @method('PUT')
-                                            <div class="col-12 text-center">
+                                    <form action="{{ route('civilian.agreement.accept',$agreement->id) }}"
+                                        method="post">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="col-12 text-center">
                                             <button type="submit" class="btn btn-primary me-2">Accept</button>
-                                            <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-                                            </form>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    </div>
+                                            <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal"
+                                                aria-label="Close">Cancel</button>
+                                    </form>
                                 </div>
-                            <!--/ Approve Modal -->
-                             <!-- Reject Model -->
-                                <div class="modal fade" id="reject" tabindex="-1" aria-hidden="true">
-                                    <div class="modal-dialog modal-simple modal-enable-otp modal-dialog-centered">
-                                    <div class="modal-content p-3 p-md-5">
-                                        <div class="modal-body">
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        <div class="text-center mb-4">
-                                            <h3 class="mb-2">Reject Agreement</h3>
-                                        </div>
-                                        <p>Are you sure you want to reject this agreement?
-                                            Ensure that you have understood all the terms and conditions of the agreement.
-                                        </p>
-
-                                        <form action="{{ route('civilian.agreement.reject',$agreement->id) }}" method="post">
-                                            @csrf
-                                            @method('PUT')
-                                            <div class="col-12 text-center">
-                                            <button type="submit" class="btn btn-danger me-2">Yes Reject</button>
-                                            <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-                                            </div>
-                                        </form>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                             <!--/ Reject Model -->
-                     @endif
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="card-body pb-0">
-                <p>
-                {{ $agreement->description }}
-                </p>
-            </div>
-      </div>
+                <!--/ Approve Modal -->
+                <!-- Reject Model -->
+                <div class="modal fade" id="reject" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-simple modal-enable-otp modal-dialog-centered">
+                        <div class="modal-content p-3 p-md-5">
+                            <div class="modal-body">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                                <div class="text-center mb-4">
+                                    <h3 class="mb-2">Reject Agreement</h3>
+                                </div>
+                                <p>Are you sure you want to reject this agreement?
+                                    Ensure that you have understood all the terms and conditions of the agreement.
+                                </p>
 
+                                <form action="{{ route('civilian.agreement.reject',$agreement->id) }}" method="post">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="col-12 text-center">
+                                        <button type="submit" class="btn btn-danger me-2">Yes Reject</button>
+                                        <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal"
+                                            aria-label="Close">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/ Reject Model -->
+                @endif
+            </div>
+        </div>
+        <div class="card-body pb-0">
+            <p>
+                {{ $agreement->description }}
+            </p>
+            <div class="py-3">
+                <span class="badge bg-primary me-1">Amount</span>
+                <span class="badge bg-danger me-1">{{ number_format($agreement->amount) }}</span>
+            </div>
+        </div>
     </div>
-  </div>
+
+    <div class="card mb-3">
+        <h5 class="card-header">All Payments
+            @if ($agreement->created_by == auth()->guard('civilian')->user()->id && $agreement->whoToPay == 'me')
+            <a href=""  data-bs-toggle="modal" data-bs-target="#smallModal" class="btn btn-sm btn-primary float-end">Make
+                Payment</a>
+            @elseif($agreement->created_by == auth()->guard('civilian')->user()->id && $agreement->whoToPay == 'other')
+            @else
+            <a href=""  data-bs-toggle="modal" data-bs-target="#smallModal" class="btn btn-sm btn-primary float-end">Make
+                Payment</a>
+            @endif
+        </h5>
+         <!-- Small Modal -->
+         <div class="modal fade" id="smallModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel2">Make Payment</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('civilian.agreement.paymentStore',$agreement->id) }}" method="post">
+                    @csrf
+                    <div class="modal-body">
+                    <div class="row">
+                        <div class="col mb-3">
+                        <label for="nameSmall" class="form-label">Amount</label>
+                        <input type="number" min="0" id="nameSmall" class="form-control" name="amount" placeholder="Enter Amount" required>
+                        </div>
+                    </div>
+
+                    <div class="col text-end">
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="table-responsive text-nowrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Payment Date</th>
+                <th>Amount Payed</th>
+                <th>Remaining Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+                @php
+                    $amount = 0;
+                    $remaining = 0;
+                @endphp
+
+              @foreach ($payments as $item)
+                <tr>
+                    <td>{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</td>
+                    <td>{{ $item->created_at->format('Y-m-d') }}</td>
+                    <td>{{ number_format($item->amount) }}</td>
+                    <td>
+                    {{ number_format($agreement->amount - $item->amount) }}
+                    </td>
+                </tr>
+                @php
+                    $amount += $item->amount;
+                    $remaining = $agreement->amount - $amount;
+                @endphp
+
+              @endforeach
+
+            </tbody>
+            <tfoot class="table-border-bottom-0">
+              <tr>
+                <th colspan="2" class="rounded-start-bottom"><strong>Total</strong></th>
+                <th><strong>{{ number_format($amount) }}</strong></th>
+                <th class="rounded-end-bottom"><strong>{{ number_format($remaining) }}</strong></th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+    </div>
+    <div class="card">
+        <h5 class="card-header">Withdrawals History
+            @if ($agreement->created_by == auth()->guard('civilian')->user()->id && $agreement->whoToPay == 'me')
+            <a href=""  data-bs-toggle="modal" data-bs-target="#smallModal" class="btn btn-sm btn-primary float-end">Make
+                Payment</a>
+            @elseif($agreement->created_by == auth()->guard('civilian')->user()->id && $agreement->whoToPay == 'other')
+            @else
+            <a href=""  data-bs-toggle="modal" data-bs-target="#smallModal" class="btn btn-sm btn-primary float-end">Make
+                Payment</a>
+            @endif
+        </h5>
+         <!-- Small Modal -->
+         <div class="modal fade" id="smallModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel2">Make Payment</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('civilian.agreement.paymentStore',$agreement->id) }}" method="post">
+                    @csrf
+                    <div class="modal-body">
+                    <div class="row">
+                        <div class="col mb-3">
+                        <label for="nameSmall" class="form-label">Amount</label>
+                        <input type="number" min="0" id="nameSmall" class="form-control" name="amount" placeholder="Enter Amount" required>
+                        </div>
+                    </div>
+
+                    <div class="col text-end">
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="table-responsive text-nowrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Payment Date</th>
+                <th>Amount Payed</th>
+                <th>Remaining Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+                @php
+                    $amount = 0;
+                    $remaining = 0;
+                @endphp
+
+              @foreach ($payments as $item)
+                <tr>
+                    <td>{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</td>
+                    <td>{{ $item->created_at->format('Y-m-d') }}</td>
+                    <td>{{ number_format($item->amount) }}</td>
+                    <td>
+                    {{ number_format($agreement->amount - $item->amount) }}
+                    </td>
+                </tr>
+                @php
+                    $amount += $item->amount;
+                    $remaining = $agreement->amount - $amount;
+                @endphp
+
+              @endforeach
+
+            </tbody>
+            <tfoot class="table-border-bottom-0">
+              <tr>
+                <th colspan="2" class="rounded-start-bottom"><strong>Total</strong></th>
+                <th><strong>{{ number_format($amount) }}</strong></th>
+                <th class="rounded-end-bottom"><strong>{{ number_format($remaining) }}</strong></th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+    </div>
+</div>
+</div>
 @endsection
 @section('js')
 <script>

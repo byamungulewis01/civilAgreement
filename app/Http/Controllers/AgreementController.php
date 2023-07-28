@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Agreement;
 use App\Models\Civilian;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 
 class AgreementController extends Controller
@@ -17,7 +18,8 @@ class AgreementController extends Controller
     public function show($id)
     {
         $agreement = Agreement::findorfail($id);
-        return view('civilian.agreement.show', compact('agreement'));
+        $payments = Payment::where('agreement_id', $id)->orderBy('created_at', 'desc')->get();
+        return view('civilian.agreement.show', compact('agreement', 'payments'));
     }
     //create
     public function create()
@@ -105,6 +107,27 @@ class AgreementController extends Controller
             'rejectedDate' => now(),
         ]);
         return back()->with('success', 'Agreement rejected successfully');
+    }
+
+    // paymentStore
+    public function paymentStore(Request $request, $id)
+    {
+        $this->validate($request, [
+            'amount' => 'required|numeric',
+        ]);
+       $agreement = Agreement::findorfail($id);
+       $payAmount = Payment::where('agreement_id', $agreement->id)->sum('amount');
+       //check if payment is done
+         if ($payAmount >= $agreement->amount) {
+              return back()->with('error', 'Payment already done');
+         }
+        Payment::create([
+            'agreement_id' =>$id,
+            'type' => 'deposit',
+            'amount' => $request->amount,
+        ]);
+        return back()->with('success', 'Payment done successfully');
+
     }
 
 }
