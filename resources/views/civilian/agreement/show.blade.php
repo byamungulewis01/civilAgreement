@@ -150,13 +150,14 @@
 
     <div class="card mb-3">
         <h5 class="card-header">All Payments
+            @if ($agreement->status != 'pending')
             @if ($agreement->created_by == auth()->guard('civilian')->user()->id && $agreement->whoToPay == 'me')
             <a href=""  data-bs-toggle="modal" data-bs-target="#smallModal" class="btn btn-sm btn-primary float-end">Make
                 Payment</a>
-            @elseif($agreement->created_by == auth()->guard('civilian')->user()->id && $agreement->whoToPay == 'other')
-            @else
+            @elseif($agreement->created_by != auth()->guard('civilian')->user()->id && $agreement->whoToPay == 'other')
             <a href=""  data-bs-toggle="modal" data-bs-target="#smallModal" class="btn btn-sm btn-primary float-end">Make
                 Payment</a>
+            @endif
             @endif
         </h5>
          <!-- Small Modal -->
@@ -231,33 +232,38 @@
     </div>
     <div class="card">
         <h5 class="card-header">Withdrawals History
-            @if ($agreement->created_by == auth()->guard('civilian')->user()->id && $agreement->whoToPay == 'me')
-            <a href=""  data-bs-toggle="modal" data-bs-target="#smallModal" class="btn btn-sm btn-primary float-end">Make
-                Payment</a>
-            @elseif($agreement->created_by == auth()->guard('civilian')->user()->id && $agreement->whoToPay == 'other')
-            @else
-            <a href=""  data-bs-toggle="modal" data-bs-target="#smallModal" class="btn btn-sm btn-primary float-end">Make
-                Payment</a>
+            @if ($agreement->status != 'pending')
+            @if ($agreement->created_by == auth()->guard('civilian')->user()->id && $agreement->whoToPay == 'other')
+            <a href="" data-bs-toggle="modal" data-bs-target="#Withdrawal" class="btn btn-sm btn-primary float-end">Withdrawal</a>
+            @elseif($agreement->created_by != auth()->guard('civilian')->user()->id && $agreement->whoToPay == 'me')
+            <a href="" data-bs-toggle="modal" data-bs-target="#Withdrawal" class="btn btn-sm btn-primary float-end">Withdrawal</a>
+            @endif
             @endif
         </h5>
          <!-- Small Modal -->
-         <div class="modal fade" id="smallModal" tabindex="-1" aria-hidden="true">
+         <div class="modal fade" id="Withdrawal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-sm" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel2">Make Payment</h5>
+                  <h5 class="modal-title" id="exampleModalLabel2">Withdrawal</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('civilian.agreement.paymentStore',$agreement->id) }}" method="post">
+                <form action="{{ route('civilian.agreement.withdrawal',$agreement->id) }}" method="post">
                     @csrf
+                         @php
+                            $payee = \App\Models\Payment::where('agreement_id',$agreement->id)->where('type', 'deposit')->sum('amount');
+                            $withdrawal = \App\Models\Payment::where('agreement_id',$agreement->id)->where('type', 'withdrawal')->sum('amount');
+                            $amount = $payee - $withdrawal;
+                        @endphp
                     <div class="modal-body">
-                    <div class="row">
-                        <div class="col mb-3">
-                        <label for="nameSmall" class="form-label">Amount</label>
-                        <input type="number" min="0" id="nameSmall" class="form-control" name="amount" placeholder="Enter Amount" required>
-                        </div>
-                    </div>
+                        <h5>
+                            Are you sure you want to withdraw?
+                        </h5>
+                        <p>
+                            Your are about to withdraw <strong class="text-danger">{{ number_format($amount) }}</strong> from your account to your mobile number
+                        </p>
 
+                        <input type="hidden" name="amount" value="{{ $amount }}">
                     <div class="col text-end">
                         <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
                     <button class="btn btn-primary">Submit</button>
@@ -273,7 +279,7 @@
               <tr>
                 <th>#</th>
                 <th>Payment Date</th>
-                <th>Amount Payed</th>
+                <th>Amount</th>
                 <th>Remaining Amount</th>
               </tr>
             </thead>
@@ -283,7 +289,7 @@
                     $remaining = 0;
                 @endphp
 
-              @foreach ($payments as $item)
+              @foreach ($withdrawals as $item)
                 <tr>
                     <td>{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</td>
                     <td>{{ $item->created_at->format('Y-m-d') }}</td>
