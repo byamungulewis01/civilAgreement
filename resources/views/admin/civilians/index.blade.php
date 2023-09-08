@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title') Users @endsection
+@section('title') Civilians @endsection
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}">
@@ -8,108 +8,24 @@
 @endsection
 
 @section('body')
-@unless (!Request::routeIs('admin.users.index'))
-<div class="row g-4 mb-4">
-    <div class="col-sm-6 col-xl-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex align-items-start justify-content-between">
-                    <div class="content-left">
-                        <span>Total Users</span>
-                        <div class="d-flex align-items-center my-2">
-                            <h3 class="mb-0 me-2">{{ $users->count() }}</h3>
-                            <a href="{{ route('admin.users.index') }}" class="text-primary mb-0">View All</a>
-                        </div>
-                    </div>
-                    <div class="avatar">
-                        <span class="avatar-initial rounded bg-label-primary">
-                            <i class="ti ti-user ti-sm"></i>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-6 col-xl-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex align-items-start justify-content-between">
-                    <div class="content-left">
-                        <span>Active Users</span>
-                        <div class="d-flex align-items-center my-2">
-                            <h3 class="mb-0 me-2">{{ $users->where('status',1)->count() }}</h3>
-                            <a href="{{ route('admin.users.active') }}" class="text-success mb-0">View All</a>
-                        </div>
-                    </div>
-                    <div class="avatar">
-                        <span class="avatar-initial rounded bg-label-success">
-                            <i class="ti ti-user-check ti-sm"></i>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-6 col-xl-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex align-items-start justify-content-between">
-                    <div class="content-left">
-                        <span>Inactive Users</span>
-                        <div class="d-flex align-items-center my-2">
-                            <h3 class="mb-0 me-2">{{ $users->where('status',2)->count() }}</h3>
-                            <a href="{{ route('admin.users.inactive') }}" class="text-danger mb-0">View All</a>
-                        </div>
-                    </div>
-                    <div class="avatar">
-                        <span class="avatar-initial rounded bg-label-danger">
-                            <i class="ti ti-user-plus ti-sm"></i>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="col-sm-6 col-xl-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex align-items-start justify-content-between">
-                    <div class="content-left">
-                        <span>Disactive Users</span>
-                        <div class="d-flex align-items-center my-2">
-                            <h3 class="mb-0 me-2">{{ \App\Models\User::onlyTrashed()->count() }}</h3>
-                            <a href="{{ route('admin.users.disactive') }}" class="text-warning mb-0">View All</a>
-                        </div>
-                    </div>
-                    <div class="avatar">
-                        <span class="avatar-initial rounded bg-label-warning">
-                            <i class="ti ti-user-exclamation ti-sm"></i>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endunless
 <!-- Users List Table -->
 <div class="card">
     <div class="card-header border-bottom">
         <h5 class="card-title mb-3">
-            @if (Request::routeIs('admin.users.index'))
-            All Users
-            @elseif(Request::routeIs('admin.users.active'))
-            Active Users
-            @elseif(Request::routeIs('admin.users.inactive'))
-            Inactive Users
+            @if (Request::routeIs('admin.civilian.index'))
+            All Civilians
+            @elseif(Request::routeIs('admin.civilian.active'))
+            Active Civilians
+            @elseif(Request::routeIs('admin.civilian.inactive'))
+            Inactive Civilians
             @else
-            Deactive Users
+            Deactive Civilians
             @endif
-            @unless (Request::routeIs('admin.users.disactive'))
+            @unless (Request::routeIs('admin.civilian.disactive'))
             <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
                 data-bs-target="#addCivilian">
-                <i class="ti ti-plus"></i> Add User
+                <i class="ti ti-plus"></i> Add Civilian
             </button>
             @endunless
         </h5>
@@ -120,12 +36,12 @@
                     <div class="modal-body">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         <div class="text-center mb-4">
-                            <h3 class="mb-2">Add New User</h3>
-                            <p class="text-muted">Information About User to Join CAM System</p>
+                            <h3 class="mb-2">Add New Civilian</h3>
+                            <p class="text-muted">Information About Civilian to Join CAM System</p>
                         </div>
 
                         <form id="formAuthentication" class="mb-3 fv-plugins-bootstrap5 fv-plugins-framework"
-                            action="{{ route('admin.users.store') }}" method="POST" enctype="multipart/form-data">
+                            action="{{ route('admin.civilian.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @if($errors->any())
                             <div class="alert alert-danger">
@@ -151,11 +67,11 @@
                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
                                 <div class="col-md-6 mb-3 fv-plugins-icon-container">
-                                    <label for="role" class="form-label">Role</label>
-                                    <select name="role" class="form-select" id="">
-                                        <option value="admin">Admin</option>
-                                        <option value="judge">Notary</option>
-                                    </select>
+
+                                    <label for="national_id" class="form-label">National ID</label>
+                                    <input type="text" class="form-control" id="national_id" name="national_id" required
+                                        placeholder="Enter your ID Number" minlength="16" maxlength="16">
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
                             </div>
                             <div class="mb-3 fv-plugins-icon-container">
@@ -165,6 +81,12 @@
                                     <input type="text" id="phone" name="phone" required class="form-control"
                                         placeholder="Phone number" minlength="10" maxlength="10">
                                 </div>
+                            </div>
+                            <div class="mb-3 fv-plugins-icon-container">
+                                <label for="national_id_image" class="form-label">National ID Image</label>
+                                <input class="form-control" required type="file" id="national_id_image"
+                                    name="file" accept="image/*">
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
                             <button class="btn btn-primary d-grid w-100 waves-effect waves-light">
                                 Register
@@ -185,18 +107,19 @@
                     <th>Name</th>
                     <th>Phone</th>
                     <th>Email</th>
+                    <th>National ID</th>
                     <th>Status</th>
-                    <th>Role</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($users as $item)
+                @foreach ($civilians as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->phone }}</td>
                     <td>{{ $item->email }}</td>
+                    <td>{{ $item->national_id }}</td>
                     <td>
                         @if ($item->status == 1)
                         <span class="badge  bg-label-success">Active</span>
@@ -207,17 +130,10 @@
                         @endif
                     </td>
                     <td>
-                        @if ($item->role == 'admin')
-                        Admin
-                        @else
-                        Notary
-                        @endif
-                    </td>
-                    <td>
 
                         <div data-bs-toggle="modal" data-bs-target="#editCivilian{{ $item->id }}"
                             class="d-flex align-items-center">
-                            @unless (Request::routeIs('admin.users.disactive'))
+                            @unless (Request::routeIs('admin.civilian.disactive'))
                             <a href="javascript:;" class="text-body edit-record "><i
                                     class="ti ti-edit ti-sm me-2"></i></a>
 
@@ -225,8 +141,9 @@
                                 href="javascript:;" class="text-body delete-record 1"><i
                                     class="ti ti-trash ti-sm mx-2"></i></a>
                             @else
-                            <a data-bs-toggle="modal" data-bs-target="#activate{{ $item->id }}" href="javascript:;"
-                                class="text-body delete-record 1"><i class="ti ti-check ti-sm mx-2"></i> Activate</a>
+                            <a data-bs-toggle="modal" data-bs-target="#activate{{ $item->id }}"
+                                href="javascript:;" class="text-body delete-record 1"><i
+                                    class="ti ti-check ti-sm mx-2"></i> Activate</a>
 
                             @endunless
 
@@ -244,7 +161,7 @@
 
                                         <form id="formAuthentication"
                                             class="mb-3 fv-plugins-bootstrap5 fv-plugins-framework"
-                                            action="{{ route('admin.users.update',$item->id) }}" method="POST"
+                                            action="{{ route('admin.civilian.update',$item->id) }}" method="POST"
                                             enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
@@ -274,13 +191,12 @@
                                             <div class="row mb-3">
 
                                                 <div class="col-md-6 fv-plugins-icon-container">
-                                                    <label for="role" class="form-label">Role</label>
-                                                    <select name="role" class="form-select" id="">
-                                                        <option {{ $item->role == 'admin' ? 'selected' : '' }}
-                                                            value="admin">Admin</option>
-                                                        <option {{ $item->role == 'judge' ? 'selected' : '' }}
-                                                            value="judge">Notary</option>
-                                                    </select>
+
+                                                    <label for="national_id" class="form-label">National ID</label>
+                                                    <input type="text" class="form-control" id="national_id"
+                                                        name="national_id" value="{{ $item->national_id }}"
+                                                        minlength="16" maxlength="16">
+                                                    <div class="fv-plugins-message-container invalid-feedback"></div>
                                                 </div>
                                                 <div class="col-md-6 fv-plugins-icon-container">
 
@@ -302,6 +218,13 @@
                                                         maxlength="10">
                                                 </div>
                                             </div>
+                                            <div class="mb-3 fv-plugins-icon-container">
+                                                <label for="national_id_image" class="form-label">National ID
+                                                    Image</label>
+                                                <input class="form-control" type="file" id="national_id_image"
+                                                    name="file" accept="image/*">
+                                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                                            </div>
                                             <button class="btn btn-primary d-grid w-100 waves-effect waves-light">
                                                 Save
                                             </button>
@@ -318,14 +241,14 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
-                                    <form action="{{ route('admin.users.destroy',$item->id) }}" method="post">
+                                    <form action="{{ route('admin.civilian.destroy',$item->id) }}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <div class="modal-body">
 
                                             <div class="text-center mb-1">
                                                 <h3 class="mb-2">Are sure to do this?</h3>
-                                                <p class="text-muted">You Are About to delete a user ,so be
+                                                <p class="text-muted">You Are About to delete a civilian ,so be
                                                     Attention</p>
                                             </div>
                                             <div class="text-end">
@@ -346,14 +269,14 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
-                                    <form action="{{ route('admin.users.activate',$item->id) }}" method="post">
+                                    <form action="{{ route('admin.civilian.activate',$item->id) }}" method="post">
                                         @csrf
                                         @method('PUT')
                                         <div class="modal-body">
 
                                             <div class="text-center mb-1">
                                                 <h3 class="mb-2">Are sure to Activate?</h3>
-                                                <p class="text-muted">You Are About to Active a User to be active</p>
+                                                <p class="text-muted">You Are About to Active a civilian to be active</p>
                                             </div>
                                             <div class="text-end">
                                                 <button type="button" class="btn btn-label-secondary"

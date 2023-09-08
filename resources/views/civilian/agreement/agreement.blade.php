@@ -33,7 +33,7 @@
             <div class="d-flex align-items-center flex-wrap">
               <div class="bg-lighter px-3 py-2 rounded me-auto mb-3">
                   <h6 class="mb-0">Total Amount</h6>
-                  <small class="mb-0 text-success">RWF {{ number_format($item->amount) }}</small>
+                  <small class="mb-0 text-danger">RWF {{ number_format($item->amount) }}</small>
               </div>
               <div class="text-end mb-3">
 

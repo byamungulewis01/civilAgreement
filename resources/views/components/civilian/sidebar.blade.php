@@ -1,20 +1,19 @@
+@php
+$agreementStatus = \App\Models\Agreement::where('partyOne', auth()->guard('civilian')->user()->id)->orWhere('partyTwo',
+auth()->guard('civilian')->user()->id);
+@endphp
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-
-
     <div class="app-brand demo ">
         <a href="index-2.html" class="app-brand-link">
             <span class="app-brand-logo demo">
-                <svg width="32" height="22" viewBox="0 0 32 22" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
+                <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd"
                         d="M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z"
                         fill="#7367F0" />
                     <path opacity="0.06" fill-rule="evenodd" clip-rule="evenodd"
-                        d="M7.69824 16.4364L12.5199 3.23696L16.5541 7.25596L7.69824 16.4364Z"
-                        fill="#161616" />
+                        d="M7.69824 16.4364L12.5199 3.23696L16.5541 7.25596L7.69824 16.4364Z" fill="#161616" />
                     <path opacity="0.06" fill-rule="evenodd" clip-rule="evenodd"
-                        d="M8.07751 15.9175L13.9419 4.63989L16.5849 7.28475L8.07751 15.9175Z"
-                        fill="#161616" />
+                        d="M8.07751 15.9175L13.9419 4.63989L16.5849 7.28475L8.07751 15.9175Z" fill="#161616" />
                     <path fill-rule="evenodd" clip-rule="evenodd"
                         d="M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z"
                         fill="#7367F0" />
@@ -44,68 +43,13 @@
 
         </li>
 
-
-        <!-- Apps & Pages -->
-
-        <li class="menu-item">
-            <a href="app-kanban.html" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-layout-kanban"></i>
-                <div data-i18n="Kanban">Kanban</div>
-            </a>
-        </li>
-
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-users"></i>
-                <div data-i18n="Users">Users</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="app-user-list.html" class="menu-link">
-                        <div data-i18n="List">List</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <div data-i18n="View">View</div>
-                    </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="app-user-view-account.html" class="menu-link">
-                                <div data-i18n="Account">Account</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="app-user-view-security.html" class="menu-link">
-                                <div data-i18n="Security">Security</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="app-user-view-billing.html" class="menu-link">
-                                <div data-i18n="Billing & Plans">Billing & Plans</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="app-user-view-notifications.html" class="menu-link">
-                                <div data-i18n="Notifications">Notifications</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="app-user-view-connections.html" class="menu-link">
-                                <div data-i18n="Connections">Connections</div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-
         <!-- Cards -->
-        <li class="menu-item {{ in_array(Route::currentRouteName(), ['civilian.agreement.create','civilian.agreement.index']) ? 'open' : '' }}">
+        <li
+            class="menu-item {{ in_array(Route::currentRouteName(), ['civilian.agreement.create','civilian.agreement.index']) ? 'open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-id"></i>
                 <div data-i18n="Agreements">Agreements</div>
-                <div class="badge bg-label-primary rounded-pill ms-auto">6</div>
+                <div class="badge bg-label-primary rounded-pill ms-auto">{{ $agreementStatus->where('status','pending')->count() }}</div>
             </a>
             <ul class="menu-sub">
                 <li class="menu-item {{ Request::routeIs('civilian.agreement.index') ? 'active' : '' }}">
@@ -120,6 +64,29 @@
                 </li>
 
             </ul>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-forms"></i>
+                <div data-i18n="Fails">Fails</div>
+                <div class="badge bg-label-warning rounded-pill ms-auto">0</div>
+            </a>
+        </li>
+
+
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-text-wrap-disabled"></i>
+                <div data-i18n="Rejected">Rejected</div>
+                <div class="badge bg-label-danger rounded-pill ms-auto">{{ $agreementStatus->where('status','rejected')->count() }}</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-checkbox"></i>
+                <div data-i18n="Completed">Completed</div>
+                <div class="badge bg-label-success rounded-pill ms-auto">{{ $agreementStatus->where('status','completed')->count() }}</div>
+            </a>
         </li>
 
         </li>

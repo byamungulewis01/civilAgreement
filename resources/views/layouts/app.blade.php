@@ -56,7 +56,8 @@
 
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/rtl/core.css') }}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/rtl/theme-default.css') }}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/rtl/theme-default.css') }}"
+        class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
 
 
@@ -68,17 +69,14 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/flatpickr/flatpickr.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/select2/select2.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/formvalidation/dist/css/formValidation.min.css') }}" />
-      @yield('css')
+    @yield('css')
     <link rel="stylesheet" href="{{ asset('assets/toast/css/jquery.toast.css') }}">
 
-        <!-- Page CSS -->
+    <!-- Page CSS -->
 
     <!-- Helpers -->
     <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
 
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
-    <script src="{{ asset('assets/vendor/js/template-customizer.js') }}"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('assets/js/config.js') }}"></script>
 </head>
@@ -153,22 +151,17 @@
                                         document.write(new Date().getFullYear())
 
                                     </script>
-                                    , made with ❤️ by <a href="https://pixinvent.com/" target="_blank"
-                                        class="fw-semibold">Pixinvent</a>
+                                    , Developed By <a href="#" class="fw-semibold">UWINEZA Landrine</a>
                                 </div>
                                 <div>
 
-                                    <a href="https://themeforest.net/licenses/standard" class="footer-link me-4"
-                                        target="_blank">License</a>
-                                    <a href="https://1.envato.market/pixinvent_portfolio" target="_blank"
-                                        class="footer-link me-4">More Themes</a>
-
-                                    <a href="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/documentation/"
-                                        target="_blank" class="footer-link me-4">Documentation</a>
+                                    <a href="#" class="footer-link me-4">License</a>
 
 
-                                    <a href="https://pixinvent.ticksy.com/" target="_blank"
-                                        class="footer-link d-none d-sm-inline-block">Support</a>
+                                    <a href="#" class="footer-link me-4">Documentation</a>
+
+
+                                    <a href="#" class="footer-link d-none d-sm-inline-block">Support</a>
 
                                 </div>
                             </div>
@@ -188,39 +181,39 @@
     </div>
     <!-- / Layout wrapper -->
 
-  <!-- Core JS -->
-  <!-- build:js assets/vendor/js/core.js -->
-  <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
-  <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
-  <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
-  <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
-  <script src="{{ asset('assets/vendor/libs/node-waves/node-waves.js') }}"></script>
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
+    <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/node-waves/node-waves.js') }}"></script>
 
-  <script src="{{ asset('assets/vendor/libs/hammer/hammer.js') }}"></script>
-  <script src="{{ asset('assets/vendor/libs/i18n/i18n.js') }}"></script>
-  <script src="{{ asset('assets/vendor/libs/typeahead-js/typeahead.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/hammer/hammer.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/i18n/i18n.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/typeahead-js/typeahead.js') }}"></script>
 
-  <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
-  <!-- endbuild -->
+    <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
+    <!-- endbuild -->
 
-  <!-- Vendors JS -->
-  <script src="{{ asset('assets/vendor/libs/bs-stepper/bs-stepper.js') }}"></script>
-<script src="{{ asset('assets/vendor/libs/flatpickr/flatpickr.js') }}"></script>
-<script src="{{ asset('assets/vendor/libs/select2/select2.js') }}"></script>
-<script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js') }}"></script>
-<script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js') }}"></script>
-<script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js') }}"></script>
+    <!-- Vendors JS -->
+    <script src="{{ asset('assets/vendor/libs/bs-stepper/bs-stepper.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/flatpickr/flatpickr.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/select2/select2.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js') }}"></script>
 
-  <!-- Main JS -->
-  <script src="{{ asset('assets/js/main.js') }}"></script>
+    <!-- Main JS -->
+    <script src="{{ asset('assets/js/main.js') }}"></script>
 
-  <script src="{{ asset('assets/toast/jquery.js') }}"></script>
+    <script src="{{ asset('assets/toast/jquery.js') }}"></script>
     <script src="{{ asset('assets/toast/js/jquery.toast.js') }}"></script>
     @include('layouts.flash_message')
 
-  <!-- Page JS -->
+    <!-- Page JS -->
 
-@yield('js')
+    @yield('js')
 
 </body>
 

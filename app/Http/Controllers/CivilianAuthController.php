@@ -75,7 +75,7 @@ class CivilianAuthController extends Controller
         ]);
         $civilian = Civilian::where('email', $request->email)->first();
         if ($civilian) {
-            $civilian->update(['password_reset' => uniqid().'&email='.$civilian->email, ]);
+            $civilian->update(['password_reset' => uniqid() . '&email=' . $civilian->email]);
             Mail::send('emails.resetPassword', ['key' => $civilian->password_reset], function ($message) use ($civilian) {
                 $message->to($civilian->email);
                 $message->subject('Reset Password');

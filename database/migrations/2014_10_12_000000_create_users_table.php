@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->boolean('password_reseted')->default(false);
             $table->enum('role', ['admin', 'judge']);
+             $table->enum('status',[1,2])->default(1);
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

@@ -14,92 +14,98 @@
     </div>
 </div>
 <!-- end page title end breadcrumb -->
-<div class="row">
+{{-- <div class="row">
     <div class="col12">
         <div class="card">
             <div class="card-body">
                 <form action="{{ route('civilian.agreement.store') }}" method="post">
                     @csrf
-                <div class="row g-3 mb-3">
-                    <div class="col-12 pb-2">
-                        <div class="row">
-                            <div class="col-md mb-md-0 mb-2">
-                                <div class="form-check custom-option custom-option-icon checked">
-                                    <label class="form-check-label custom-option-content" for="customRadioPercentage">
-                                        <span class="custom-option-body">
+                    <div class="row g-3 mb-3">
+                        <div class="col-12 pb-2">
+                            <div class="row">
+                                <div class="col-md mb-md-0 mb-2">
+                                    <div class="form-check custom-option custom-option-icon checked">
+                                        <label class="form-check-label custom-option-content"
+                                            for="customRadioPercentage">
+                                            <span class="custom-option-body">
 
-                                            <span class="custom-option-title">Pay With Me </span>
-                                            <small>Create a deal which offer uses some % off (i.e 5% OFF) on
-                                                total.</small>
-                                        </span>
-                                        <input name="whoToPay" class="form-check-input" type="radio" value="me"
-                                            id="customRadioPercentage" checked="">
-                                    </label>
+                                                <span class="custom-option-title">Pay With Me </span>
+                                                <small>Create a deal which offer uses some % off (i.e 5% OFF) on
+                                                    total.</small>
+                                            </span>
+                                            <input name="whoToPay" class="form-check-input" type="radio" value="me"
+                                                id="customRadioPercentage" checked="">
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md mb-md-0 mb-2">
-                                <div class="form-check custom-option custom-option-icon">
-                                    <label class="form-check-label custom-option-content" for="customRadioPrime">
-                                        <span class="custom-option-body">
-                                            <span class="custom-option-title"> Pay With Other </span>
-                                            <small>Create prime member only deal to encourage the prime members.</small>
-                                        </span>
-                                        <input name="whoToPay" class="form-check-input" type="radio" value="other"
-                                            id="customRadioPrime">
-                                    </label>
+                                <div class="col-md mb-md-0 mb-2">
+                                    <div class="form-check custom-option custom-option-icon">
+                                        <label class="form-check-label custom-option-content" for="customRadioPrime">
+                                            <span class="custom-option-body">
+                                                <span class="custom-option-title"> Pay With Other </span>
+                                                <small>Create prime member only deal to encourage the prime
+                                                    members.</small>
+                                            </span>
+                                            <input name="whoToPay" class="form-check-input" type="radio" value="other"
+                                                id="customRadioPrime">
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6 fv-plugins-icon-container">
-                        <label class="form-label" for="dealAmount">Amount to pay</label>
-                        <input type="number" name="amount" value="{{ old('amount') }}" id="dealAmount" class="form-control" placeholder="25"
-                            min="0" max="100000000" aria-describedby="dealAmountHelp">
-                        <div id="dealAmountHelp" class="form-text">Enter the Agreement Amount  10 = 10%</div>
-                        <div class="fv-plugins-message-container invalid-feedback"></div>
-                    </div>
-                    <div class="col-sm-6">
-                        <label for="dealDuration" class="form-label">Agreement Duration</label>
-                        <input type="text" id="dealDuration" name="duration" value="{{ old('duration') }}"  class="form-control flatpickr-input"
-                            placeholder="YYYY-MM-DD to YYYY-MM-DD" readonly="readonly">
+                        <div class="col-sm-6 fv-plugins-icon-container">
+                            <label class="form-label" for="dealAmount">Amount to pay</label>
+                            <input type="number" name="amount" value="{{ old('amount') }}" id="dealAmount"
+                                class="form-control" placeholder="25" min="0" max="100000000"
+                                aria-describedby="dealAmountHelp">
+                            <div id="dealAmountHelp" class="form-text">Enter the Agreement Amount 10 = 10%</div>
+                            <div class="fv-plugins-message-container invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="dealDuration" class="form-label">Agreement Duration</label>
+                            <input type="text" id="dealDuration" name="duration" value="{{ old('duration') }}"
+                                class="form-control flatpickr-input" placeholder="YYYY-MM-DD to YYYY-MM-DD"
+                                readonly="readonly">
                             <div id="dealAmountHelp" class="form-text">Enter Agreement Duration</div>
                             <div class="fv-plugins-message-container invalid-feedback"></div>
+                        </div>
                     </div>
-                </div>
-                <div class="row g-3 mb-3">
-                    <div class="col-lg-12">
-                        <label class="form-label" for="agreement">Agreement Category</label>
-                        <input type="text" name="category" value="{{ old('category') }}" id="agreement" class="form-control" placeholder="Agreement"
-                            aria-describedby="agreementHelp">
-                      </div>
-                    <div class="col-lg-12">
-                        <label class="form-label" for="agreement">Agreement Description</label>
-                        <textarea class="form-control" id="agreement" name="description" rows="5">{{ old('description') }}</textarea>
-                      </div>
-                </div>
-                <div class="row g-3 mb-3">
-                    <div class="col-sm-12">
-                        <label class="form-label" for="nationalId">Party National ID</label>
-                        <input type="text" minlength="16" maxlength="16" id="nationalId"  value="{{ old('partyTwo') }}" name="partyTwo" class="form-control"
-                            placeholder="00000000000000000">
+                    <div class="row g-3 mb-3">
+                        <div class="col-lg-12">
+                            <label class="form-label" for="agreement">Agreement Category</label>
+                            <input type="text" name="category" value="{{ old('category') }}" id="agreement"
+                                class="form-control" placeholder="Agreement" aria-describedby="agreementHelp">
+                        </div>
+                        <div class="col-lg-12">
+                            <label class="form-label" for="agreement">Agreement Description</label>
+                            <textarea class="form-control" id="agreement" name="description"
+                                rows="5">{{ old('description') }}</textarea>
+                        </div>
                     </div>
-                </div>
-                <div class="row g-3 mb-3">
-                    <div class="col-12 d-flex justify-content-between mt-4">
-                        <button class="btn btn-primary btn-next waves-effect waves-light"> <span
-                                class="align-middle d-sm-inline-block d-none me-sm-1">Submit</span> <i
-                                class="ti ti-send ti-xs"></i></button>
+                    <div class="row g-3 mb-3">
+                        <div class="col-sm-12">
+                            <label class="form-label" for="nationalId">Party National ID</label>
+                            <input type="text" minlength="16" maxlength="16" id="nationalId"
+                                value="{{ old('partyTwo') }}" name="partyTwo" class="form-control"
+                                placeholder="00000000000000000">
+                        </div>
                     </div>
-                </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-12 d-flex justify-content-between mt-4">
+                            <button class="btn btn-primary btn-next waves-effect waves-light"> <span
+                                    class="align-middle d-sm-inline-block d-none me-sm-1">Submit</span> <i
+                                    class="ti ti-send ti-xs"></i></button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 <!-- Create Deal Wizard -->
-{{-- <div id="wizard-create-deal" class="bs-stepper vertical mt-2 linear">
+<div id="wizard-create-deal" class="bs-stepper vertical mt-2 linear">
     <div class="bs-stepper-header">
         <div class="step active" data-target="#deal-type">
             <button type="button" class="step-trigger" aria-selected="true">
@@ -125,24 +131,25 @@
             <button type="button" class="step-trigger" aria-selected="false" disabled="disabled">
                 <span class="bs-stepper-circle"><i class="ti ti-credit-card ti-sm"></i></span>
                 <span class="bs-stepper-label">
-                    <span class="bs-stepper-title">Deal Usage</span>
-                    <span class="bs-stepper-subtitle">Limitations &amp; Offers</span>
+                    <span class="bs-stepper-title">Review &amp; Complete</span>
+                    <span class="bs-stepper-subtitle">Create a deal</span>
                 </span>
             </button>
         </div>
         <div class="line"></div>
         <div class="step" data-target="#review-complete">
             <button type="button" class="step-trigger" aria-selected="false" disabled="disabled">
-                <span class="bs-stepper-circle"><i class="ti ti-checkbox ti-sm"></i></span>
+                {{-- <span class="bs-stepper-circle"><i class="ti ti-checkbox ti-sm"></i></span>
                 <span class="bs-stepper-label">
                     <span class="bs-stepper-title">Review &amp; Complete</span>
                     <span class="bs-stepper-subtitle">Launch a deal!</span>
-                </span>
+                </span> --}}
             </button>
         </div>
     </div>
     <div class="bs-stepper-content">
-        <form id="wizard-create-deal-form" onsubmit="return false">
+        <form id="wizard-create-deal-form" action="{{ route('civilian.agreement.store') }}" method="post">
+            @csrf
             <div id="deal-type" class="content active dstepper-block fv-plugins-bootstrap5 fv-plugins-framework">
                 <div class="row g-3">
 
@@ -153,11 +160,11 @@
                                     <label class="form-check-label custom-option-content" for="customRadioPercentage">
                                         <span class="custom-option-body">
 
-                                            <span class="custom-option-title">Percentage</span>
-                                            <small>Create a deal which offer uses some % off (i.e 5% OFF) on
-                                                total.</small>
+                                            <span class="custom-option-title">Pay With Me </span>
+                                            <small>Chech pay with me in case agreement payment will be done by
+                                                you</small>
                                         </span>
-                                        <input name="customRadioIcon" class="form-check-input" type="radio" value=""
+                                        <input name="whoToPay" class="form-check-input" type="radio" value="me"
                                             id="customRadioPercentage" checked="">
                                     </label>
                                 </div>
@@ -167,10 +174,11 @@
                                 <div class="form-check custom-option custom-option-icon">
                                     <label class="form-check-label custom-option-content" for="customRadioPrime">
                                         <span class="custom-option-body">
-                                            <span class="custom-option-title"> Prime Member </span>
-                                            <small>Create prime member only deal to encourage the prime members.</small>
+                                            <span class="custom-option-title"> Pay With Other </span>
+                                            <small>If you Check pay with other that means payment will not made by
+                                                you</small>
                                         </span>
-                                        <input name="customRadioIcon" class="form-check-input" type="radio" value=""
+                                        <input name="whoToPay" class="form-check-input" type="radio" value="other"
                                             id="customRadioPrime">
                                     </label>
                                 </div>
@@ -178,26 +186,29 @@
                         </div>
                     </div>
                     <div class="col-sm-6 fv-plugins-icon-container">
-                        <label class="form-label" for="dealAmount">Discount</label>
-                        <input type="number" name="dealAmount" id="dealAmount" class="form-control" placeholder="25"
-                            min="0" max="100000000" aria-describedby="dealAmountHelp">
-                        <div id="dealAmountHelp" class="form-text">Enter the discount percentage. 10 = 10%</div>
+                        <label class="form-label" for="dealAmount">Amount to pay</label>
+                        <input type="number" value="{{ old('amount') }}" name="amount" id="dealAmount"
+                            class="form-control" placeholder="25,000,000" min="0" max="100000000"
+                            aria-describedby="dealAmountHelp">
+                        <div id="dealAmountHelp" class="form-text">Enter the agreement amount </div>
                         <div class="fv-plugins-message-container invalid-feedback"></div>
                     </div>
                     <div class="col-sm-6">
-                        <label for="dealDuration" class="form-label">Deal Duration</label>
-                        <input type="text" id="dealDuration" name="dealDuration" class="form-control flatpickr-input"
-                            placeholder="YYYY-MM-DD to YYYY-MM-DD" readonly="readonly">
-                            <div id="dealAmountHelp" class="form-text">Enter the discount percentage. 10 = 10%</div>
-                            <div class="fv-plugins-message-container invalid-feedback"></div>
+                        <label for="dealDuration" class="form-label">Agreement Duration</label>
+                        <input type="text" id="dealDuration" name="duration" value="{{ old('duration') }}"
+                            class="form-control flatpickr-input" placeholder="YYYY-MM-DD to YYYY-MM-DD"
+                            readonly="readonly">
+                        <div id="dealAmountHelp" class="form-text">Duration between agreement starting to the ending
+                        </div>
+                        <div class="fv-plugins-message-container invalid-feedback"></div>
                     </div>
 
                     <div class="col-12 d-flex justify-content-between mt-4">
-                        <button class="btn btn-label-secondary btn-prev waves-effect" disabled=""> <i
+                        <button type="button" class="btn btn-label-secondary btn-prev waves-effect" disabled=""> <i
                                 class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
                             <span class="align-middle d-sm-inline-block d-none">Previous</span>
                         </button>
-                        <button class="btn btn-primary btn-next waves-effect waves-light"> <span
+                        <button type="button" class="btn btn-primary btn-next waves-effect waves-light"> <span
                                 class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i
                                 class="ti ti-arrow-right ti-xs"></i></button>
                     </div>
@@ -208,20 +219,25 @@
 
                     <div class="col-lg-12">
                         <label class="form-label" for="agreement">Agreement Category</label>
-                        <input type="text" name="agreement" id="agreement" class="form-control" placeholder="Agreement"
-                            aria-describedby="agreementHelp">
-                      </div>
+                        <input type="text" name="category" value="{{ old('category') }}" id="agreement"
+                            class="form-control" placeholder="Agreement" aria-describedby="agreementHelp">
+                        <div id="agreementHelp" class="form-text">Describe Agreement Category
+                        </div>
+                    </div>
                     <div class="col-lg-12">
                         <label class="form-label" for="agreement">Agreement Description</label>
-                        <textarea class="form-control" id="agreement" name="agreement" rows="5"></textarea>
-                      </div>
+                        <textarea class="form-control" id="agreement" name="description"
+                            rows="5">{{ old('description') }}</textarea>
+                        <div id="dsfksdlksdkfs" class="form-text">Description of agreement in deep
+                            </div>
+                    </div>
 
                     <div class="col-12 d-flex justify-content-between mt-4">
-                        <button class="btn btn-label-secondary btn-prev waves-effect"> <i
+                        <button type="button" class="btn btn-label-secondary btn-prev waves-effect"> <i
                                 class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
                             <span class="align-middle d-sm-inline-block d-none">Previous</span>
                         </button>
-                        <button class="btn btn-primary btn-next waves-effect waves-light"> <span
+                        <button type="button" class="btn btn-primary btn-next waves-effect waves-light"> <span
                                 class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i
                                 class="ti ti-arrow-right ti-xs"></i></button>
                     </div>
@@ -229,93 +245,35 @@
             </div>
             <div id="deal-usage" class="content fv-plugins-bootstrap5 fv-plugins-framework">
                 <div class="row g-3">
+                    <div class="col-12 mb-0">
+                        <h3>Almost done! 🚀</h3>
+                        <p>Confirm your deal details information and submit to create it.</p>
+                    </div>
                     <div class="col-sm-12">
-                        <label class="form-label" for="dealUserType">User Type</label>
-                        <input type="number" id="dealUserType" name="dealMaxUsers" class="form-control"
-                            placeholder="500">
-                    </div>
-
-                    <div class="col-12 d-flex justify-content-between mt-4">
-                        <button class="btn btn-label-secondary btn-prev waves-effect"> <i
-                                class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
-                            <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                        </button>
-                        <button class="btn btn-primary btn-next waves-effect waves-light"> <span
-                                class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i
-                                class="ti ti-arrow-right ti-xs"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div id="review-complete" class="content fv-plugins-bootstrap5 fv-plugins-framework">
-                <div class="row g-3">
-
-                    <div class="col-lg-6">
-                        <div class="row">
-                            <div class="col-12 mb-0">
-                                <h3>Almost done! 🚀</h3>
-                                <p>Confirm your deal details information and submit to create it.</p>
-                            </div>
-                            <div class="col-12 mb-0">
-                                <table class="table table-borderless">
-                                    <tbody>
-                                        <tr>
-                                            <td class="ps-0 align-top text-nowrap py-1"><strong>Deal Type</strong></td>
-                                            <td class="px-0 py-1">Percentage</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="ps-0 align-top text-nowrap py-1"><strong>Amount</strong></td>
-                                            <td class="px-0 py-1">25%</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="ps-0 align-top text-nowrap py-1"><strong>Deal Code</strong></td>
-                                            <td class="px-0 py-1">
-                                                <div class="badge bg-label-warning">25PEROFF</div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="ps-0 align-top text-nowrap py-1"><strong>Deal Title</strong></td>
-                                            <td class="px-0 py-1">Black friday sale, 25% OFF</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="ps-0 align-top text-nowrap py-1"><strong>Deal Duration</strong>
-                                            </td>
-                                            <td class="px-0 py-1"><span class="fw-semibold">2021-07-14</span> to <span
-                                                    class="fw-semibold">2021-07-30</span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-5 d-flex justify-content-center border rounded pt-3">
-                        <img class="img-fluid" src="../../assets/img/illustrations/wizard-create-deal-confirm.png"
-                            alt="deal image cap">
-                    </div>
-                    <div class="col-md-12">
-                        <label class="switch">
-                            <input type="checkbox" class="switch-input" id="dealConfirmed" name="dealConfirmed">
-                            <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                            </span>
-                            <span class="switch-label"> I have confirmed the deal details.</span>
-                        </label>
+                        <label class="form-label" for="nationalId">Party National ID</label>
+                        <input type="text" minlength="16" maxlength="16" id="nationalId" value="{{ old('partyTwo') }}"
+                            name="partyTwo" class="form-control" placeholder="00000000000000000">
+                         <div id="nationalId" class="form-text">National ID Of Other Party</div>
                     </div>
                     <div class="col-12 d-flex justify-content-between mt-4">
                         <button class="btn btn-label-secondary btn-prev waves-effect"> <i
                                 class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
                             <span class="align-middle d-sm-inline-block d-none">Previous</span>
                         </button>
-                        <button class="btn btn-success btn-submit btn-next waves-effect waves-light"><span
+                        <button class="btn btn-success btn-submit waves-effect waves-light"><span
                                 class="align-middle d-sm-inline-block d-none me-sm-1">Submit</span><i
                                 class="ti ti-check ti-xs"></i></button>
                     </div>
+
+
                 </div>
+            </div>
+            <div id="review-complete" class="content fv-plugins-bootstrap5 fv-plugins-framework">
+
             </div>
         </form>
     </div>
-</div> --}}
+</div>
 <!-- /Create Deal Wizard -->
 
 
@@ -341,7 +299,7 @@
             });
             const s = FormValidation.formValidation(a, {
                 fields: {
-                    dealAmount: {
+                    amount: {
                         validators: {
                             notEmpty: {
                                 message: "Please enter amount",
@@ -352,7 +310,7 @@
                             },
                         }
                     },
-                    dealDuration: {
+                    duration: {
                         validators: {
                             notEmpty: {
                                 message: "Please enter duration"
@@ -389,22 +347,6 @@
                             }
                         }
                     },
-                    dealCode: {
-                        validators: {
-                            notEmpty: {
-                                message: "Please enter deal code"
-                            },
-                            stringLength: {
-                                min: 4,
-                                max: 10,
-                                message: "The deal code must be more than 4 and less than 10 characters long"
-                            },
-                            regexp: {
-                                regexp: /^[A-Z0-9]+$/,
-                                message: "The deal code can only consist of capital alphabetical and number"
-                            }
-                        }
-                    }
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger,

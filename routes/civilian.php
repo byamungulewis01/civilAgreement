@@ -19,7 +19,7 @@ use App\Http\Controllers\CivilianDashController;
 Route::controller(CivilianAuthController::class)->name('auth.')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::post('/', 'login')->name('login');
-    Route::get('/register', 'register')->name('register');
+    // Route::get('/register', 'register')->name('register');
     Route::post('/register', 'store')->name('store');
     Route::get('/forgot-password', 'forgotPassword')->name('forgot-password');
     Route::post('/forgot-password', 'sendMail')->name('sendMail');
@@ -48,7 +48,7 @@ Route::controller(AgreementController::class)->prefix('agreement')->name('agreem
     Route::put('/update/{id}', 'update')->name('update');
     Route::put('/accept/{id}', 'accept')->name('accept');
     Route::put('/reject/{id}', 'reject')->name('reject');
-    
+
     Route::post('/payment/{id}', 'paymentStore')->name('paymentStore');
 });
 });

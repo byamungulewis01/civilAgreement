@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('amount');
             $table->foreignId('partyOne')->constrained('civilians')->onDelete('cascade');
             $table->foreignId('partyTwo')->constrained('civilians')->onDelete('cascade');
-            $table->string('status')->default('pending');// agreement status: pending, accepted, rejected, completed
+            $table->enum('status',['pending','accepted','rejected','completed'])->default('pending');// agreement status: pending, accepted, rejected, completed
             $table->string('acceptedDate')->nullable();
             $table->string('rejectedDate')->nullable();
             $table->string('completedDate')->nullable();
