@@ -18,8 +18,10 @@ class AgreementController extends Controller
     public function show($id)
     {
         $agreement = Agreement::findorfail($id);
-        $payments = Payment::where('agreement_id', $id)->orderBy('created_at', 'desc')->get();
-        return view('civilian.agreement.show', compact('agreement', 'payments'));
+
+        $payments = Payment::where('agreement_id', $id)->where('type', 'deposit')->orderBy('created_at', 'desc')->get();
+        $withdrawals = Payment::where('agreement_id', $id)->where('type', 'withdrawal')->orderBy('created_at', 'desc')->get();
+        return view('civilian.agreement.show', compact('agreement', 'payments', 'withdrawals'));
     }
     //create
     public function create()
@@ -127,6 +129,21 @@ class AgreementController extends Controller
             'amount' => $request->amount,
         ]);
         return back()->with('success', 'Payment done successfully');
+
+    }
+    // withdrawal
+    public function withdrawal(Request $request, $id)
+    {
+    //    if request amount is 0
+        if ($request->amount == 0) {
+            return back()->with('error', 'Amount cannot be 0');
+        }
+        Payment::create([
+            'agreement_id' =>$id,
+            'type' => 'withdrawal',
+            'amount' => $request->amount,
+        ]);
+        return back()->with('success', 'Withdrawal done successfully');
 
     }
 

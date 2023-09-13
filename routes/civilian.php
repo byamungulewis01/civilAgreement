@@ -50,5 +50,6 @@ Route::controller(AgreementController::class)->prefix('agreement')->name('agreem
     Route::put('/reject/{id}', 'reject')->name('reject');
 
     Route::post('/payment/{id}', 'paymentStore')->name('paymentStore');
+    Route::post('/withdrawal/{id}', 'withdrawal')->name('withdrawal');
 });
 });
