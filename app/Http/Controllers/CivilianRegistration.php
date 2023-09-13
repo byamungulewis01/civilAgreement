@@ -49,6 +49,7 @@ class CivilianRegistration extends Controller
         $request->merge([
             'national_id_image' => $imageName,
             'password' => $password,
+            'user_id' => auth()->user()->id
         ]);
         $civil = Civilian::create($request->all());
         try {
