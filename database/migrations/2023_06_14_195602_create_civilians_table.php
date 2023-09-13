@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('password');
             $table->enum('status',[1,2,3])->default(1);
             $table->string('password_reset')->nullable();
+            $table->uuid('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
