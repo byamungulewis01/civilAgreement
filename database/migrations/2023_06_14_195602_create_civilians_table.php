@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('civilians', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->char('phone', 10)->unique();
             $table->string('email')->unique();
@@ -22,8 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->enum('status',[1,2,3])->default(1);
             $table->string('password_reset')->nullable();
-            $table->uuid('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignUuid('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

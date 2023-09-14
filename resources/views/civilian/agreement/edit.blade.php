@@ -119,7 +119,8 @@
     ! function () {
         var e = document.querySelector("#dealDuration"),
             e = (e && e.flatpickr({
-                mode: "range"
+                mode: "range",
+                minDate: "today"
             }), window.Helpers.initCustomOptionCheck(), document.querySelector("#wizard-create-deal"));
         if (null !== e) {
             var o = e.querySelector("#wizard-create-deal-form"),

@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use Ramsey\Uuid\Uuid;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Agreement extends Model
 {
-    use HasFactory;
+    use HasFactory,HasUuids;
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $fillable = [
@@ -34,14 +34,5 @@ class Agreement extends Model
     public function party2()
     {
         return $this->belongsTo(Civilian::class, 'partyTwo');
-    }
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $model->id = Uuid::uuid4()->toString();
-        });
     }
 }

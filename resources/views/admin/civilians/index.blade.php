@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title') Civilians @endsection
+@section('title') Citizen @endsection
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}">
@@ -14,18 +14,18 @@
     <div class="card-header border-bottom">
         <h5 class="card-title mb-3">
             @if (Request::routeIs('admin.civilian.index'))
-            All Civilians
+            All Citizen
             @elseif(Request::routeIs('admin.civilian.active'))
-            Active Civilians
+            Active Citizen
             @elseif(Request::routeIs('admin.civilian.inactive'))
-            Inactive Civilians
+            Inactive Citizen
             @else
-            Deactive Civilians
+            Deactive Citizen
             @endif
             @unless (Request::routeIs('admin.civilian.disactive'))
             <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
                 data-bs-target="#addCivilian">
-                <i class="ti ti-plus"></i> Add Civilian
+                <i class="ti ti-plus"></i> Add Citizen
             </button>
             @endunless
         </h5>
@@ -36,7 +36,7 @@
                     <div class="modal-body">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         <div class="text-center mb-4">
-                            <h3 class="mb-2">Add New Civilian</h3>
+                            <h3 class="mb-2">Add New Citizen</h3>
                             <p class="text-muted">Information About Civilian to Join CAM System</p>
                         </div>
 

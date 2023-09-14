@@ -40,8 +40,7 @@
 
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo/logo.jpg') }}" />
-
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo/law.png') }}" />
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>

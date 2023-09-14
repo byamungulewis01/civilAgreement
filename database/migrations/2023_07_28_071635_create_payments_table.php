@@ -22,13 +22,7 @@ return new class extends Migration
             $table->string('transactionReference')->nullable();
             $table->timestamps();
         });
-        $existingRows = DB::table('payments')->get();
-        foreach ($existingRows as $row) {
-            DB::table('payments')
-                ->where('id', $row->id)
-                ->update(['id' => Uuid::uuid4()]);
-        }
-
+    
     }
 
     /**

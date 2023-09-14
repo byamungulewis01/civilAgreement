@@ -17,7 +17,7 @@
                         fill="#7367F0" />
                 </svg>
             </span> --}}
-            <span class="app-brand-text demo menu-text fw-bold">Civil Agreement</span>
+            <span class="app-brand-text demo menu-text fw-bold">Citizen Agreement</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -76,27 +76,27 @@
             class="menu-item {{ in_array(Route::currentRouteName(), ['admin.civilian.index','admin.civilian.active','admin.civilian.inactive','admin.civilian.disactive']) ? 'open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-id"></i>
-                <div data-i18n="Civilians">Civilians</div>
+                <div data-i18n="Citizen">Citizen</div>
             </a>
             <ul class="menu-sub">
                 <li class="menu-item {{ Request::routeIs('admin.civilian.index') ? 'active' : '' }}">
                     <a href="{{ route('admin.civilian.index') }}" class="menu-link">
-                        <div data-i18n="All Civilians">All Civilians</div>
+                        <div data-i18n="All Citizen">All Citizen</div>
                     </a>
                 </li>
                 <li class="menu-item {{ Request::routeIs('admin.civilian.active') ? 'active' : '' }}">
                     <a href="{{ route('admin.civilian.active') }}" class="menu-link">
-                        <div data-i18n="Active Civilians">Active Civilians</div>
+                        <div data-i18n="Active Citizen">Active Citizen</div>
                     </a>
                 </li>
                 <li class="menu-item {{ Request::routeIs('admin.civilian.inactive') ? 'active' : '' }}">
                     <a href="{{ route('admin.civilian.inactive') }}" class="menu-link">
-                        <div data-i18n="Inactive Civilians">Inactive Civilians</div>
+                        <div data-i18n="Inactive Citizen">Inactive Citizen</div>
                     </a>
                 </li>
                 <li class="menu-item {{ Request::routeIs('admin.civilian.disactive') ? 'active' : '' }}">
                     <a href="{{ route('admin.civilian.disactive') }}" class="menu-link">
-                        <div data-i18n="Disactive Civilians">Disactive Civilians</div>
+                        <div data-i18n="Disactive Citizen">Disactive Citizen</div>
                     </a>
                 </li>
 

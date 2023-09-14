@@ -41,6 +41,10 @@ Route::controller(CivilianDashController::class)->prefix('civilian')->name('dash
 });
 Route::controller(AgreementController::class)->prefix('agreement')->name('agreement.')->group(function () {
     Route::get('/', 'index')->name('index');
+    Route::get('/pending', 'pending')->name('pending');
+    Route::get('/accepted', 'accepted')->name('accepted');
+    Route::get('/rejected', 'rejected')->name('rejected');
+    Route::get('/completed', 'completed')->name('completed');
     Route::get('/show/{id}', 'show')->name('show');
     Route::get('/create', 'create')->name('create');
     Route::post('/store', 'store')->name('store');
