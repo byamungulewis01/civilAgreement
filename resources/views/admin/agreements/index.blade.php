@@ -17,8 +17,8 @@
             All Agreements
             @elseif(Request::routeIs('admin.agreements.pending'))
             Pending Agreements
-            @elseif(Request::routeIs('admin.agreements.fail'))
-            Fail Agreements
+            @elseif(Request::routeIs('admin.agreements.accepted'))
+            Accepted Agreements
             @else
             Completed Agreements
             @endif
@@ -35,7 +35,7 @@
                     <th>Value</th>
                     <th>Duration</th>
                     <th>Remaining time</th>
-                    <th>Status</th>
+                    {{-- <th>Status</th> --}}
                     <th></th>
                 </tr>
             </thead>
@@ -54,9 +54,10 @@
                         $deadline = explode(' to ', $item->duration)[1];
                         $days = \Carbon\Carbon::parse($deadline)->diffInDays(\Carbon\Carbon::now());
                         @endphp
-                        <span class="badge bg-label-{{ $days > 5 ? 'success' : 'danger' }} ms-auto">{{ $days }} Days left</span>
+                        <span class="badge bg-label-{{ $days > 5 ? 'success' : 'danger' }} ms-auto">{{ $days }} Days
+                            left</span>
                     </td>
-                    <td>
+                    {{-- <td>
                         @if ($item->status == 1)
                         <span class="badge  bg-label-success">Active</span>
                         @elseif($item->status == 2)
@@ -64,8 +65,8 @@
                         @else
                         <span class="badge  bg-label-danger">Disactive</span>
                         @endif
-                    </td>
-                    <td>View
+                    </td> --}}
+                    <td><a href="{{ route('admin.agreements.show',$item->id) }}" class="btn btn-sm btn-primary"><i class="ti ti-eye ti-sm me-1"></i> View</a>
                     </td>
                 </tr>
                 @endforeach

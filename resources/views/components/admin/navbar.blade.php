@@ -56,7 +56,7 @@ id="layout-navbar">
                             title="Mark all as read"><i class="ti ti-mail-opened fs-4"></i></a>
                     </div>
                 </li>
-                
+
                 <li class="dropdown-menu-footer border-top">
                     <a href="javascript:void(0);"
                         class="dropdown-item d-flex justify-content-center text-primary p-2 h-px-40 mb-1 align-items-center">

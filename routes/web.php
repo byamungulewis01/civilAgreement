@@ -63,8 +63,9 @@ Route::controller(CivilianRegistration::class)->name('civilian.')->group(functio
 
 Route::controller(CivilAgreements::class)->prefix('agreements')->name('agreements.')->group(function () {
     Route::get('/', 'index')->name('index');
+    Route::get('/show/{id}', 'show')->name('show');
     Route::get('/pending', 'pending')->name('pending');
-    Route::get('/fail', 'fail')->name('fail');
+    Route::get('/accepted', 'accepted')->name('accepted');
     Route::get('/completed', 'completed')->name('completed');
 });
 });

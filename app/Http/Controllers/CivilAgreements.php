@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Payment;
 use App\Models\Agreement;
 use Illuminate\Http\Request;
 
@@ -12,19 +13,27 @@ class CivilAgreements extends Controller
         $agreements = Agreement::orderBy('id','desc')->get();
         return view('admin.agreements.index',compact('agreements'));
     }
+    public function show($id)
+    {
+        $agreement = Agreement::findorfail($id);
+
+        $payments = Payment::where('agreement_id', $id)->where('type', 'deposit')->orderBy('created_at', 'desc')->get();
+        $withdrawals = Payment::where('agreement_id', $id)->where('type', 'withdrawal')->orderBy('created_at', 'desc')->get();
+        return view('admin.agreements.show',compact('agreement','payments', 'withdrawals'));
+    }
     public function pending()
     {
-        $agreements = Agreement::orderBy('id','desc')->get();
+        $agreements = Agreement::where('status','pending')->orderBy('id','desc')->get();
         return view('admin.agreements.index',compact('agreements'));
     }
-    public function fail()
+    public function accepted()
     {
-        $agreements = Agreement::orderBy('id','desc')->get();
+        $agreements = Agreement::where('status','accepted')->orderBy('id','desc')->get();
         return view('admin.agreements.index',compact('agreements'));
     }
     public function completed()
     {
-        $agreements = Agreement::orderBy('id','desc')->get();
+        $agreements = Agreement::where('status','completed')->orderBy('id','desc')->get();
         return view('admin.agreements.index',compact('agreements'));
     }
 }

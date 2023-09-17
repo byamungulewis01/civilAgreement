@@ -37,7 +37,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         <div class="text-center mb-4">
                             <h3 class="mb-2">Add New Citizen</h3>
-                            <p class="text-muted">Information About Civilian to Join CAM System</p>
+                            <p class="text-muted">Information About Citizen to Join CAM System</p>
                         </div>
 
                         <form id="formAuthentication" class="mb-3 fv-plugins-bootstrap5 fv-plugins-framework"
@@ -155,8 +155,8 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                         <div class="text-center mb-4">
-                                            <h3 class="mb-2">Edit Civilian</h3>
-                                            <p class="text-muted">Information About Civilian to Join CAM System</p>
+                                            <h3 class="mb-2">Edit Citizen</h3>
+                                            <p class="text-muted">Information About Citizen to Join CAM System</p>
                                         </div>
 
                                         <form id="formAuthentication"
