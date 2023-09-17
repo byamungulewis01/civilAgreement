@@ -47,9 +47,9 @@ class UserController extends Controller
             'password' => $password
         ]);
         $user = User::create($request->all());
-        // try {
-        //     Mail::to($user->email)->send(new NewAccount($user->email, $password));
-        // } catch (\Exception $e) {}
+        try {
+            Mail::to($user->email)->send(new NewAccount($user->email, $password));
+        } catch (\Exception $e) {}
         return to_route('admin.users.index')->with('success','User Created Successfully');
     }
     public function update(Request $request,$id)

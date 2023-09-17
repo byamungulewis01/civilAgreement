@@ -45,19 +45,19 @@ class CivilianRegistration extends Controller
             $imageName = time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('images'), $imageName);
         }
-        // $password = Str::random(6);
-        $password = 12345678;
+        $password = Str::random(6);
+        // $password = 12345678;
         $request->merge([
             'national_id_image' => $imageName,
             'password' => $password,
             'user_id' => auth()->user()->id
         ]);
         $civil = Civilian::create($request->all());
-        // try {
-        //     Mail::to($civil->email)->send(new NewAccount($civil->email, $password));
-        // } catch (\Exception $e) {
-        //     return back()->with('error','Citizen Not Created Try Again');
-        // }
+        try {
+            Mail::to($civil->email)->send(new NewAccount($civil->email, $password));
+        } catch (\Exception $e) {
+            return back()->with('error','Citizen Not Created Try Again');
+        }
         return to_route('admin.civilian.index')->with('success', 'Citizen Created Successfully');
     }
     public function update(Request $request, $id)

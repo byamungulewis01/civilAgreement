@@ -21,28 +21,28 @@ class AgreementController extends Controller
     {
         $agreements = Agreement::where(function ($query) {$user_id = auth()->guard('civilian')->user()->id;
             $query->where('partyOne', $user_id)->orWhere('partyTwo',
-            $user_id);})->where('status','pending')->orderBy('id', 'desc')->get();
+                $user_id);})->where('status', 'pending')->orderBy('id', 'desc')->get();
         return view('civilian.agreement.agreement', compact('agreements'));
     }
     public function accepted()
     {
         $agreements = Agreement::where(function ($query) {$user_id = auth()->guard('civilian')->user()->id;
             $query->where('partyOne', $user_id)->orWhere('partyTwo',
-            $user_id);})->where('status','accepted')->orderBy('id', 'desc')->get();
+                $user_id);})->where('status', 'accepted')->orderBy('id', 'desc')->get();
         return view('civilian.agreement.agreement', compact('agreements'));
     }
     public function rejected()
     {
         $agreements = Agreement::where(function ($query) {$user_id = auth()->guard('civilian')->user()->id;
             $query->where('partyOne', $user_id)->orWhere('partyTwo',
-            $user_id);})->where('status','rejected')->orderBy('id', 'desc')->get();
+                $user_id);})->where('status', 'rejected')->orderBy('id', 'desc')->get();
         return view('civilian.agreement.agreement', compact('agreements'));
     }
     public function completed()
     {
         $agreements = Agreement::where(function ($query) {$user_id = auth()->guard('civilian')->user()->id;
             $query->where('partyOne', $user_id)->orWhere('partyTwo',
-            $user_id);})->where('status','completed')->orderBy('id', 'desc')->get();
+                $user_id);})->where('status', 'completed')->orderBy('id', 'desc')->get();
         return view('civilian.agreement.agreement', compact('agreements'));
     }
 
@@ -155,44 +155,49 @@ class AgreementController extends Controller
             return back()->with('error', 'Payment already done');
         }
 
-         Payment::create([
+        Payment::create([
             'agreement_id' => $id,
             'type' => 'deposit',
             'amount' => $request->amount,
         ]);
-        $payed = Payment::where('agreement_id', $agreement->id)->sum('amount');
-        //check if payment is done
-        if ($payed > $agreement->amount) {
-            $agreement->update(['status' => 'completed','completedDate' => now()]);
-        }
-
-        return back()->with('success', 'Payment done successfully');
-
-        // $paypack = new Paypack();
-        // $paypack->config([
-        //     'client_id' => env('PAYPACK_CLIENT_ID'),
-        //     'client_secret' => env('PAYPACK_CLIENT_SECRET'),
-        // ]);
-        // $cashin = $paypack->Cashin([
-        //     'phone' => $request->phone,
-        //     'amount' => $request->amount,
-        // ]);
-        // sleep(25);
-
-        // $transaction = $paypack->Events(['ref' => $cashin['ref']]);
-        // $status = $transaction['transactions'][0]['data']['status'];
-
-        // if ($status == 'successful') {
-        //     Payment::create([
-        //         'agreement_id' => $id,
-        //         'type' => 'deposit',
-        //         'amount' => $request->amount,
-        //         'transactionReference' => $cashin['ref'],
-        //     ]);
-        //     return back()->with('success', 'Payment done successfully');
-        // } else {
-        //     return back()->with('error', 'timeout Payment failed try Agian');
+        // $payed = Payment::where('agreement_id', $agreement->id)->sum('amount');
+        // //check if payment is done
+        // if ($payed > $agreement->amount) {
+        //     $agreement->update(['status' => 'completed','completedDate' => now()]);
         // }
+
+        // return back()->with('success', 'Payment done successfully');
+
+        $paypack = new Paypack();
+        $paypack->config([
+            'client_id' => env('PAYPACK_CLIENT_ID'),
+            'client_secret' => env('PAYPACK_CLIENT_SECRET'),
+        ]);
+        $cashin = $paypack->Cashin([
+            'phone' => $request->phone,
+            'amount' => $request->amount,
+        ]);
+        sleep(25);
+
+        $transaction = $paypack->Events(['ref' => $cashin['ref']]);
+        $status = $transaction['transactions'][0]['data']['status'];
+
+        if ($status == 'successful') {
+            Payment::create([
+                'agreement_id' => $id,
+                'type' => 'deposit',
+                'amount' => $request->amount,
+                'transactionReference' => $cashin['ref'],
+            ]);
+            $payed = Payment::where('agreement_id', $agreement->id)->sum('amount');
+            //check if payment is done
+            if ($payed > $agreement->amount) {
+                $agreement->update(['status' => 'completed', 'completedDate' => now()]);
+            }
+            return back()->with('success', 'Payment done successfully');
+        } else {
+            return back()->with('error', 'timeout Payment failed try Agian');
+        }
 
     }
     // withdrawal

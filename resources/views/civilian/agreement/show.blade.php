@@ -259,14 +259,14 @@
         @endif --}}
         @if ($agreement->status != 'pending')
         @if ($agreement->created_by == auth()->guard('civilian')->user()->id && $agreement->whoToPay == 'other')
-        @if ($agreement->status == 'rejected' || $agreement->status == 'completed')
+        @if ($agreement->status == 'rejected')
 
         @else
         <a href="" data-bs-toggle="modal" data-bs-target="#Withdrawal"
             class="btn btn-sm btn-primary float-end">Withdrawal</a>
         @endif
         @elseif($agreement->created_by != auth()->guard('civilian')->user()->id && $agreement->whoToPay == 'me')
-        @if ($agreement->status == 'rejected' || $agreement->status == 'completed')
+        @if ($agreement->status == 'rejected')
 
         @else
         <a href="" data-bs-toggle="modal" data-bs-target="#Withdrawal"
