@@ -155,11 +155,11 @@ class AgreementController extends Controller
             return back()->with('error', 'Payment already done');
         }
 
-        Payment::create([
-            'agreement_id' => $id,
-            'type' => 'deposit',
-            'amount' => $request->amount,
-        ]);
+        // Payment::create([
+        //     'agreement_id' => $id,
+        //     'type' => 'deposit',
+        //     'amount' => $request->amount,
+        // ]);
         // $payed = Payment::where('agreement_id', $agreement->id)->sum('amount');
         // //check if payment is done
         // if ($payed > $agreement->amount) {
