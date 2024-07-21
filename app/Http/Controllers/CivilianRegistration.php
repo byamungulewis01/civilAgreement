@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\NewAccount;
 use App\Models\Civilian;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -40,23 +41,27 @@ class CivilianRegistration extends Controller
             'national_id' => 'required|numeric|digits:16|unique:civilians,national_id',
             'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $imageName = time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('images'), $imageName);
         }
-        $password = Str::random(6);
+        $isSendEmail = Setting::where('service', 'email')->first()->isActive;
+        $password = $isSendEmail ? Str::random(6) : '12345678';
         // $password = 12345678;
         $request->merge([
             'national_id_image' => $imageName,
             'password' => $password,
             'user_id' => auth()->user()->id
         ]);
-        $civil = Civilian::create($request->all());
         try {
-            Mail::to($civil->email)->send(new NewAccount($civil->email, $password));
+            $civil = Civilian::create($request->all());
+            if ($isSendEmail) {
+                Mail::to($civil->email)->send(new NewAccount($civil->email, $password));
+            }
         } catch (\Exception $e) {
-            return back()->with('error','Citizen Not Created Try Again');
+            return back()->with('error', 'Citizen Not Created Try Again');
         }
         return to_route('admin.civilian.index')->with('success', 'Citizen Created Successfully');
     }
@@ -97,5 +102,4 @@ class CivilianRegistration extends Controller
         Civilian::withTrashed()->findorfail($id)->restore();
         return back()->with('success', 'Civilian Activated Successfully');
     }
-
 }

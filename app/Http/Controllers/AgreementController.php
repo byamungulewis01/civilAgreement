@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Agreement;
-use App\Models\Civilian;
-use App\Models\Payment;
-use Illuminate\Http\Request;
+use App\Models\Transaction;
 use Paypack\Paypack;
+use App\Models\Payment;
+use App\Models\Setting;
+use App\Models\Civilian;
+use App\Models\Agreement;
+use Illuminate\Http\Request;
 
 class AgreementController extends Controller
 {
@@ -19,30 +21,46 @@ class AgreementController extends Controller
 
     public function pending()
     {
-        $agreements = Agreement::where(function ($query) {$user_id = auth()->guard('civilian')->user()->id;
-            $query->where('partyOne', $user_id)->orWhere('partyTwo',
-                $user_id);})->where('status', 'pending')->orderBy('id', 'desc')->get();
+        $agreements = Agreement::where(function ($query) {
+            $user_id = auth()->guard('civilian')->user()->id;
+            $query->where('partyOne', $user_id)->orWhere(
+                'partyTwo',
+                $user_id
+            );
+        })->where('status', 'pending')->orderBy('id', 'desc')->get();
         return view('civilian.agreement.agreement', compact('agreements'));
     }
     public function accepted()
     {
-        $agreements = Agreement::where(function ($query) {$user_id = auth()->guard('civilian')->user()->id;
-            $query->where('partyOne', $user_id)->orWhere('partyTwo',
-                $user_id);})->where('status', 'accepted')->orderBy('id', 'desc')->get();
+        $agreements = Agreement::where(function ($query) {
+            $user_id = auth()->guard('civilian')->user()->id;
+            $query->where('partyOne', $user_id)->orWhere(
+                'partyTwo',
+                $user_id
+            );
+        })->where('status', 'accepted')->orderBy('id', 'desc')->get();
         return view('civilian.agreement.agreement', compact('agreements'));
     }
     public function rejected()
     {
-        $agreements = Agreement::where(function ($query) {$user_id = auth()->guard('civilian')->user()->id;
-            $query->where('partyOne', $user_id)->orWhere('partyTwo',
-                $user_id);})->where('status', 'rejected')->orderBy('id', 'desc')->get();
+        $agreements = Agreement::where(function ($query) {
+            $user_id = auth()->guard('civilian')->user()->id;
+            $query->where('partyOne', $user_id)->orWhere(
+                'partyTwo',
+                $user_id
+            );
+        })->where('status', 'rejected')->orderBy('id', 'desc')->get();
         return view('civilian.agreement.agreement', compact('agreements'));
     }
     public function completed()
     {
-        $agreements = Agreement::where(function ($query) {$user_id = auth()->guard('civilian')->user()->id;
-            $query->where('partyOne', $user_id)->orWhere('partyTwo',
-                $user_id);})->where('status', 'completed')->orderBy('id', 'desc')->get();
+        $agreements = Agreement::where(function ($query) {
+            $user_id = auth()->guard('civilian')->user()->id;
+            $query->where('partyOne', $user_id)->orWhere(
+                'partyTwo',
+                $user_id
+            );
+        })->where('status', 'completed')->orderBy('id', 'desc')->get();
         return view('civilian.agreement.agreement', compact('agreements'));
     }
 
@@ -154,51 +172,36 @@ class AgreementController extends Controller
         if ($payAmount > $agreement->amount) {
             return back()->with('error', 'Payment already done');
         }
-
-        // Payment::create([
-        //     'agreement_id' => $id,
-        //     'type' => 'deposit',
-        //     'amount' => $request->amount,
-        // ]);
-        // $payed = Payment::where('agreement_id', $agreement->id)->sum('amount');
-        // //check if payment is done
-        // if ($payed > $agreement->amount) {
-        //     $agreement->update(['status' => 'completed','completedDate' => now()]);
-        // }
-
-        // return back()->with('success', 'Payment done successfully');
-
-        $paypack = new Paypack();
-        $paypack->config([
-            'client_id' => env('PAYPACK_CLIENT_ID'),
-            'client_secret' => env('PAYPACK_CLIENT_SECRET'),
-        ]);
-        $cashin = $paypack->Cashin([
-            'phone' => $request->phone,
-            'amount' => $request->amount,
-        ]);
-        sleep(25);
-
-        $transaction = $paypack->Events(['ref' => $cashin['ref']]);
-        $status = $transaction['transactions'][0]['data']['status'];
-
-        if ($status == 'successful') {
+        $isPayActive = Setting::where('service', 'payment')->first()->isActive;
+        if ($isPayActive) {
+            $paypack = new Paypack();
+            $paypack->config([
+                'client_id' => env('PAYPACK_CLIENT_ID'),
+                'client_secret' => env('PAYPACK_CLIENT_SECRET'),
+            ]);
+            $cashin = $paypack->Cashin([
+                'phone' => $request->phone,
+                'amount' => $request->amount,
+            ]);
+            Transaction::create([
+                'amount' => $request->amount,
+                'ref' => $cashin['ref'],
+                'agreement_id' => $id]);
+            return to_route('civilian.agreement.waiting');
+        } else {
             Payment::create([
                 'agreement_id' => $id,
                 'type' => 'deposit',
                 'amount' => $request->amount,
-                'transactionReference' => $cashin['ref'],
             ]);
             $payed = Payment::where('agreement_id', $agreement->id)->sum('amount');
             //check if payment is done
             if ($payed > $agreement->amount) {
                 $agreement->update(['status' => 'completed', 'completedDate' => now()]);
             }
-            return back()->with('success', 'Payment done successfully');
-        } else {
-            return back()->with('error', 'timeout Payment failed try Agian');
-        }
 
+            return back()->with('success', 'Payment done successfully');
+        }
     }
     // withdrawal
     public function withdrawal(Request $request, $id)
@@ -224,7 +227,9 @@ class AgreementController extends Controller
             'transactionReference' => $cashout['ref'],
         ]);
         return back()->with('success', 'Withdrawal done successfully');
-
     }
-
+    public function paymentWaiting()
+    {
+        return view('civilian.agreement.waiting');
+    }
 }

@@ -139,22 +139,22 @@
                             @endif
                             <div class="mb-3 fv-plugins-icon-container">
                                 <label for="name" class="form-label"> Full Name</label>
-                                <input type="text" class="form-control" id="name" name="name" required
+                                <input type="text" class="form-control" value="{{ old('name') }}" id="name" name="name" required
                                     placeholder="Enter your name" autofocus="">
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mb-3 fv-plugins-icon-container">
                                     <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" required
+                                    <input type="email" class="form-control" value="{{ old('email') }}" id="email" name="email" required
                                         placeholder="Enter your email">
                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
                                 <div class="col-md-6 mb-3 fv-plugins-icon-container">
                                     <label for="role" class="form-label">Role</label>
                                     <select name="role" class="form-select" id="">
-                                        <option value="admin">Admin</option>
-                                        <option value="judge">Notary</option>
+                                        <option {{ old('role') == 'admin' ? 'selected' : '' }} value="admin">Admin</option>
+                                        <option {{ old('role') == 'judge' ? 'selected' : '' }} value="judge">Notary</option>
                                     </select>
                                 </div>
                             </div>
@@ -162,7 +162,7 @@
                                 <label for="phone" class="form-label">Phone</label>
                                 <div class="input-group">
                                     <span class="input-group-text">RW (+25)</span>
-                                    <input type="text" id="phone" name="phone" required class="form-control"
+                                    <input type="text" id="phone" value="{{ old('phone') }}" name="phone" required class="form-control"
                                         placeholder="Phone number" minlength="10" maxlength="10">
                                 </div>
                             </div>
@@ -261,13 +261,13 @@
                                             <div class="mb-3 fv-plugins-icon-container">
                                                 <label for="name" class="form-label"> Full Name</label>
                                                 <input type="text" class="form-control" id="name" name="name" required
-                                                    value="{{ $item->name }}">
+                                                    value="{{ old('name',$item->name) }}">
                                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                                             </div>
                                             <div class="mb-3 fv-plugins-icon-container">
                                                 <label for="email" class="form-label">Email</label>
                                                 <input type="email" class="form-control" id="email" name="email"
-                                                    required value="{{ $item->email }}">
+                                                    required value="{{ old('email',$item->email) }}">
                                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                                             </div>
 
@@ -276,9 +276,9 @@
                                                 <div class="col-md-6 fv-plugins-icon-container">
                                                     <label for="role" class="form-label">Role</label>
                                                     <select name="role" class="form-select" id="">
-                                                        <option {{ $item->role == 'admin' ? 'selected' : '' }}
+                                                        <option {{ old('role',$item->role) == 'admin' ? 'selected' : '' }}
                                                             value="admin">Admin</option>
-                                                        <option {{ $item->role == 'judge' ? 'selected' : '' }}
+                                                        <option {{ old('role',$item->role) == 'judge' ? 'selected' : '' }}
                                                             value="judge">Notary</option>
                                                     </select>
                                                 </div>
@@ -286,9 +286,9 @@
 
                                                     <label for="status" class="form-label">Status</label>
                                                     <select name="status" class="form-select" id="">
-                                                        <option {{ $item->status == 1 ? 'selected' : '' }}
+                                                        <option {{ old('status',$item->status) == 1 ? 'selected' : '' }}
                                                             value="1">Active</option>
-                                                        <option {{ $item->status == 2 ? 'selected' : '' }}
+                                                        <option {{ old('status',$item->status) == 2 ? 'selected' : '' }}
                                                             value="2">Inactive</option>
                                                     </select>
                                                 </div>
@@ -298,7 +298,7 @@
                                                 <div class="input-group">
                                                     <span class="input-group-text">RW (+25)</span>
                                                     <input type="text" id="phone" name="phone" required
-                                                        class="form-control" value="{{ $item->phone }}" minlength="10"
+                                                        class="form-control" value="{{ old('phone',$item->phone) }}" minlength="10"
                                                         maxlength="10">
                                                 </div>
                                             </div>

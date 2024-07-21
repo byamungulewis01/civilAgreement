@@ -130,7 +130,7 @@
                                         document.write(new Date().getFullYear())
 
                                     </script>
-                                    , Developed By <a href="#" class="fw-semibold">UWINEZA Landrine</a>
+                                    , Developed By <a href="#" class="fw-semibold">Deborah</a>
                                 </div>
                                 <div>
 
