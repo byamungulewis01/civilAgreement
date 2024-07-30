@@ -67,5 +67,6 @@ Route::controller(CivilAgreements::class)->prefix('agreements')->name('agreement
     Route::get('/pending', 'pending')->name('pending');
     Route::get('/accepted', 'accepted')->name('accepted');
     Route::get('/completed', 'completed')->name('completed');
+    Route::get('/print/{id}', 'print')->name('print');
 });
 });

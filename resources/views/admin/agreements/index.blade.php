@@ -36,7 +36,7 @@
                     <th>Duration</th>
                     <th>Remaining time</th>
                     {{-- <th>Status</th> --}}
-                    <th></th>
+                    <th style="width: 20%"></th>
                 </tr>
             </thead>
             <tbody>
@@ -66,7 +66,9 @@
                         <span class="badge  bg-label-danger">Disactive</span>
                         @endif
                     </td> --}}
-                    <td><a href="{{ route('admin.agreements.show',$item->id) }}" class="btn btn-sm btn-primary"><i class="ti ti-eye ti-sm me-1"></i> View</a>
+                    <td>
+                        <a href="{{ route('admin.agreements.print',$item->id) }}" class="btn btn-sm btn-dark me-2" target="_blank"><i class="ti ti-printer ti-sm me-1"></i> Print</a>
+                        <a href="{{ route('admin.agreements.show',$item->id) }}" class="btn btn-sm btn-primary"><i class="ti ti-eye ti-sm me-1"></i> View</a>
                     </td>
                 </tr>
                 @endforeach
