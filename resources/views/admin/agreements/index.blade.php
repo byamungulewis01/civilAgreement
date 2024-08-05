@@ -80,14 +80,213 @@
 @endsection
 
 @section('js')
-<script src="{{ asset('assets/vendor/libs/datatables/jquery.dataTables.js') }}"></script>
+{{-- <script src="{{ asset('assets/vendor/libs/datatables/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
 <script src="{{ asset('assets/vendor/libs/datatables-responsive/datatables.responsive.js') }}"></script>
-<script src="{{ asset('assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js') }}"></script>
+<script src="{{ asset('assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js') }}"></script> --}}
+<script src="{{ asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
 
-<script>
+
+{{-- <script>
     $(document).ready(function () {
         $('#datatables').DataTable({ scrollX: true,})
     });
+</script> --}}
+<script>
+    $(document).ready(function() {
+        $('#datatables').DataTable({
+            scrollX: true,
+            dom: '<"row me-2"<"col-md-2"<"me-3"l>><"col-md-10"<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"fB>>>t<"row mx-2"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+        language: {
+            sLengthMenu: "_MENU_",
+            search: "",
+            searchPlaceholder: "Search..",
+        },
+        buttons: [
+            {
+                extend: "collection",
+                className:
+                    "btn btn-label-secondary dropdown-toggle mx-3 waves-effect waves-light",
+                text: '<i class="ti ti-screen-share me-1 ti-xs"></i>Export',
+                buttons: [
+                    {
+                        extend: "print",
+                        text: '<i class="ti ti-printer me-2" ></i>Print',
+                        className: "dropdown-item",
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6],
+                            format: {
+                                body: function (e, t, a) {
+                                    var s;
+                                    return e.length <= 0
+                                        ? e
+                                        : ((e = $.parseHTML(e)),
+                                          (s = ""),
+                                          $.each(e, function (e, t) {
+                                              void 0 !== t.classList &&
+                                              t.classList.contains(
+                                                  "user-name"
+                                              )
+                                                  ? (s +=
+                                                        t.lastChild
+                                                            .firstChild
+                                                            .textContent)
+                                                  : void 0 ===
+                                                    t.innerText
+                                                  ? (s += t.textContent)
+                                                  : (s += t.innerText);
+                                          }),
+                                          s);
+                                },
+                            },
+                        },
+                        customize: function (e) {
+                            $(e.document.body)
+                                .css("color", s)
+                                .css("border-color", t)
+                                .css("background-color", a),
+                                $(e.document.body)
+                                    .find("table")
+                                    .addClass("compact")
+                                    .css("color", "inherit")
+                                    .css("border-color", "inherit")
+                                    .css("background-color", "inherit");
+                        },
+                    },
+                    {
+                        extend: "csv",
+                        text: '<i class="ti ti-file-text me-2" ></i>Csv',
+                        className: "dropdown-item",
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6],
+                            format: {
+                                body: function (e, t, a) {
+                                    var s;
+                                    return e.length <= 0
+                                        ? e
+                                        : ((e = $.parseHTML(e)),
+                                          (s = ""),
+                                          $.each(e, function (e, t) {
+                                              void 0 !== t.classList &&
+                                              t.classList.contains(
+                                                  "user-name"
+                                              )
+                                                  ? (s +=
+                                                        t.lastChild
+                                                            .firstChild
+                                                            .textContent)
+                                                  : void 0 ===
+                                                    t.innerText
+                                                  ? (s += t.textContent)
+                                                  : (s += t.innerText);
+                                          }),
+                                          s);
+                                },
+                            },
+                        },
+                    },
+                    {
+                        extend: "excel",
+                        text: '<i class="ti ti-file-spreadsheet me-2"></i>Excel',
+                        className: "dropdown-item",
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6],
+                            format: {
+                                body: function (e, t, a) {
+                                    var s;
+                                    return e.length <= 0
+                                        ? e
+                                        : ((e = $.parseHTML(e)),
+                                          (s = ""),
+                                          $.each(e, function (e, t) {
+                                              void 0 !== t.classList &&
+                                              t.classList.contains(
+                                                  "user-name"
+                                              )
+                                                  ? (s +=
+                                                        t.lastChild
+                                                            .firstChild
+                                                            .textContent)
+                                                  : void 0 ===
+                                                    t.innerText
+                                                  ? (s += t.textContent)
+                                                  : (s += t.innerText);
+                                          }),
+                                          s);
+                                },
+                            },
+                        },
+                    },
+                    {
+                        extend: "pdf",
+                        text: '<i class="ti ti-file-code-2 me-2"></i>Pdf',
+                        className: "dropdown-item",
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6],
+                            format: {
+                                body: function (e, t, a) {
+                                    var s;
+                                    return e.length <= 0
+                                        ? e
+                                        : ((e = $.parseHTML(e)),
+                                          (s = ""),
+                                          $.each(e, function (e, t) {
+                                              void 0 !== t.classList &&
+                                              t.classList.contains(
+                                                  "user-name"
+                                              )
+                                                  ? (s +=
+                                                        t.lastChild
+                                                            .firstChild
+                                                            .textContent)
+                                                  : void 0 ===
+                                                    t.innerText
+                                                  ? (s += t.textContent)
+                                                  : (s += t.innerText);
+                                          }),
+                                          s);
+                                },
+                            },
+                        },
+                    },
+                    {
+                        extend: "copy",
+                        text: '<i class="ti ti-copy me-2" ></i>Copy',
+                        className: "dropdown-item",
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6],
+                            format: {
+                                body: function (e, t, a) {
+                                    var s;
+                                    return e.length <= 0
+                                        ? e
+                                        : ((e = $.parseHTML(e)),
+                                          (s = ""),
+                                          $.each(e, function (e, t) {
+                                              void 0 !== t.classList &&
+                                              t.classList.contains(
+                                                  "user-name"
+                                              )
+                                                  ? (s +=
+                                                        t.lastChild
+                                                            .firstChild
+                                                            .textContent)
+                                                  : void 0 ===
+                                                    t.innerText
+                                                  ? (s += t.textContent)
+                                                  : (s += t.innerText);
+                                          }),
+                                          s);
+                                },
+                            },
+                        },
+                    },
+                ],
+            },
+
+        ],
+        });
+    });
 </script>
+
 @endsection
