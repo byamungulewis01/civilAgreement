@@ -111,7 +111,20 @@
     <script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js') }}"></script>
-
+    <script>
+        $(document).ready(function() {
+            $("form").submit(function(event) {
+                $(this).find("button[type=submit]").addClass('btn btn-outline-primary btn-load').html(`<span class="d-flex align-items-center">
+                                        <span class="spinner-border flex-shrink-0" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </span>
+                                        <span class="flex-grow-1 ms-2">
+                                            Loading...
+                                        </span>
+                                    </span>`).prop("disabled", true);
+            });
+        });
+    </script>
     <!-- Main JS -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
 

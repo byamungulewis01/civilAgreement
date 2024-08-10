@@ -47,7 +47,7 @@ class PaymentCallBack extends Command
 
             $transaction = $paypack->Events(['ref' => $item->ref]);
             $status = $transaction['transactions'][0]['data']['status'];
-       
+
 
             if ($status == 'successful') {
                 Payment::create([
@@ -57,7 +57,7 @@ class PaymentCallBack extends Command
                     'transactionReference' => $item->ref,
                 ]);
                 $payed = Payment::where('agreement_id', $item->agreement_id)->sum('amount');
-                if ($payed > $item->amount) {
+                if ($payed >= $item->amount) {
                     Agreement::find($item->agreement_id)->update(['status' => 'completed', 'completedDate' => now()]);
                 }
                 $item->update(['status' => 'complete']);

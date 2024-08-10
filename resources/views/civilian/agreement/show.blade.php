@@ -193,7 +193,7 @@
                             <div class="col text-end">
                                 <button type="button" class="btn btn-label-secondary"
                                     data-bs-dismiss="modal">Close</button>
-                                <button class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                     </form>
                 </div>
@@ -311,7 +311,7 @@
 
                         <div class="col text-end">
                             <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
-                            <button class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                 </form>
             </div>

@@ -76,9 +76,9 @@
             <!-- Menu -->
 
             @if (auth()->user())
-            <x-admin.sidebar />
+                <x-admin.sidebar />
             @else
-            <x-civilian.sidebar />
+                <x-civilian.sidebar />
             @endif
 
             <!-- / Menu -->
@@ -95,9 +95,9 @@
                 <!-- Navbar -->
 
                 @if (auth()->user())
-                <x-admin.navbar />
+                    <x-admin.navbar />
                 @else
-                <x-civilian.navbar />
+                    <x-civilian.navbar />
                 @endif
 
 
@@ -126,9 +126,9 @@
                             <div
                                 class="footer-container d-flex align-items-center justify-content-between py-2 flex-md-row flex-column">
                                 <div>
-                                    © <script>
+                                    ©
+                                    <script>
                                         document.write(new Date().getFullYear())
-
                                     </script>
                                     , Developed By <a href="#" class="fw-semibold">Deborah</a>
                                 </div>
@@ -184,6 +184,22 @@
     <script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js') }}"></script>
 
     <!-- Main JS -->
+    <script>
+   
+
+        $(document).ready(function() {
+            $("form").submit(function(event) {
+                $(this).find("button[type=submit]").addClass('btn btn-outline-primary btn-load').html(`<span class="d-flex align-items-center">
+                                        <span class="spinner-border flex-shrink-0" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </span>
+                                        <span class="flex-grow-1 ms-2">
+                                            Loading...
+                                        </span>
+                                    </span>`).prop("disabled", true);
+            });
+        });
+    </script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
 
     <script src="{{ asset('assets/toast/jquery.js') }}"></script>

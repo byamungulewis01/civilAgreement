@@ -171,7 +171,7 @@
                                 class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
                             <span class="align-middle d-sm-inline-block d-none">Previous</span>
                         </button>
-                        <button class="btn btn-success btn-submit waves-effect waves-light"><span
+                        <button type="submit" class="btn btn-success btn-submit waves-effect waves-light"><span
                                 class="align-middle d-sm-inline-block d-none me-sm-1">Submit</span><i
                                 class="ti ti-check ti-xs"></i></button>
                     </div>

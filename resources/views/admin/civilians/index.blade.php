@@ -91,7 +91,7 @@
                                         name="file" accept="image/*">
                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
-                                <button class="btn btn-primary d-grid w-100 waves-effect waves-light">
+                                <button type="submit" class="btn btn-primary d-grid w-100 waves-effect waves-light">
                                     Register
                                 </button>
                                 <input type="hidden">
@@ -236,7 +236,7 @@
                                                             name="file" accept="image/*">
                                                         <div class="fv-plugins-message-container invalid-feedback"></div>
                                                     </div>
-                                                    <button class="btn btn-primary d-grid w-100 waves-effect waves-light">
+                                                    <button type="submit" class="btn btn-primary d-grid w-100 waves-effect waves-light">
                                                         Save
                                                     </button>
                                                     <input type="hidden">

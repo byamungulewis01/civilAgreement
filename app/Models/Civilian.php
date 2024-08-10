@@ -13,7 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Civilian extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable ,SoftDeletes ,HasUuids;
+    use HasApiTokens, HasFactory, Notifiable  ,HasUuids;
 
     /**
      * The attributes that are mass assignable.

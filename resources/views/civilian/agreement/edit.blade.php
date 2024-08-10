@@ -88,7 +88,7 @@
                 </div>
                 <div class="row g-3 mb-3">
                     <div class="col-12 d-flex justify-content-between mt-4">
-                        <button class="btn btn-primary btn-next waves-effect waves-light"> <span
+                        <button type="submit" class="btn btn-primary btn-next waves-effect waves-light"> <span
                                 class="align-middle d-sm-inline-block d-none me-sm-1">Save</span> <i
                                 class="ti ti-send ti-xs"></i></button>
                     </div>

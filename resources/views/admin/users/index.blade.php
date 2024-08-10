@@ -166,7 +166,7 @@
                                         placeholder="Phone number" minlength="10" maxlength="10">
                                 </div>
                             </div>
-                            <button class="btn btn-primary d-grid w-100 waves-effect waves-light">
+                            <button type="submit" class="btn btn-primary d-grid w-100 waves-effect waves-light">
                                 Register
                             </button>
                             <input type="hidden">
@@ -302,7 +302,7 @@
                                                         maxlength="10">
                                                 </div>
                                             </div>
-                                            <button class="btn btn-primary d-grid w-100 waves-effect waves-light">
+                                            <button type="submit" class="btn btn-primary d-grid w-100 waves-effect waves-light">
                                                 Save
                                             </button>
                                             <input type="hidden">
